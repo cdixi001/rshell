@@ -8,19 +8,20 @@
 
 using namespace std;
 
-vector<char*> parser(string text) {
+
+//takes in string and deliminator and tokenizes that string into vector<char*>
+vector<char*> parser(string text, const char *delim) {
 	char *line = new char[text.length()+1];	//strtok requires char*
 	strcpy(line, text.c_str());
 
 
-	char *token = strtok(line, " ");	//can be any character
+	char *token = strtok(line, delim);	//can be any character
 	vector<char*> words;
 
-	words.push_back(token);
 
 	while(token != NULL) {	
 		words.push_back(token);
-		token = strtok(NULL, " ");
+		token = strtok(NULL, delim);
 	}
 	
 	delete[] token;
@@ -40,15 +41,24 @@ void terminal() {
 	if(pid == -1) {				//error
 		perror("gethostname");
 	} else {
-		 cout << getlogin() << '%' << host << ':' << ' ';
+		 cout << getlogin() << "§" << host << ':' << ' ';
 	}	
 	
-	getline(cin, arg);	
-	vector<char*> words = parser(arg);
+	getline(cin, arg);
+	cout << arg << endl;
+	//tryig to get rid of \n \t etc
+	//arg.replace(arg.find('\n'), 1, " ");
+	vector<char*> words = parser(arg, " ");
+	words.push_back(NULL);
 
+	char **command = &words[0]; //stackoverflow.com/questions/5846934/
+	
+	//EXECVP STUFF HERE
+	int status = execvp(command[0], command);
+	
 	//TESTING DELETE THIS LATER
 	for(int i = 0; i < words.size(); i++) {
-		cout << words.at(i) << endl;
+		cout << i <<  words.at(i) << endl;
 	}
 }
 
