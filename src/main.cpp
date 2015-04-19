@@ -8,10 +8,25 @@
 
 using namespace std;
 
+//adds space before and after all instances of op in text to text
+void addSpaces(string &text, const string &op) {
+	size_t length = op.length();
+	size_t pos;
+	pos = text.find(op, 0);	//some inspiration from stackoverflow.com/questions/4034750
+
+
+	while(pos != string::npos) {
+		//pos+1 to go to thing pos was pointing at, but want to move AFTER that
+		text.insert(pos, " ");	//one space before
+		text.insert(pos+1+length, " "); //and one space after
+		pos = text.find(op, pos+1+length);
+	}
+}
 
 //takes in string and deliminator and tokenizes that string into vector<char*>
 vector<char*> parser(string text, const char *delim) {
 	char *line = new char[text.length()+1];	//strtok requires char*
+						//got this from cplusplus.com/reference/string/string/c_str
 	strcpy(line, text.c_str());
 
 
@@ -46,19 +61,28 @@ void terminal() {
 	
 	getline(cin, arg);
 	cout << arg << endl;
-	//tryig to get rid of \n \t etc
-	//arg.replace(arg.find('\n'), 1, " ");
-	vector<char*> words = parser(arg, " ");
-	words.push_back(NULL);
+	
+	//operator stuff
+	addSpaces(arg, ";");
+	addSpaces(arg, "&&");
+	addSpaces(arg, "||");
+
+	cout << arg << endl;	//testing if addSpaces actually works..
+	
+	vector<char*> words;
+	words = parser(arg, " ");
+	//words.push_back(NULL); //don't need. vector already null terminanted
 
 	char **command = &words[0]; //stackoverflow.com/questions/5846934/
 	
 	//EXECVP STUFF HERE
-	int status = execvp(command[0], command);
+	//int status = execvp(command[0], command);
+	
 	
 	//TESTING DELETE THIS LATER
 	for(int i = 0; i < words.size(); i++) {
-		cout << i <<  words.at(i) << endl;
+		cout << i;
+		cout <<  words.at(i) << endl;
 	}
 }
 
