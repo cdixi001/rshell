@@ -22,6 +22,7 @@ Just like a normal terminal, commands are of the following form:
 cmd 	= executable [ argumentList ] [ connector cmd ]
 connector = || or && or ;
 ```
+Exit with the command 'exit'
 
 For example the following runs ls -a and pwd, does not run ps, and exits.
 
