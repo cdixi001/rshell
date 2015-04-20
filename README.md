@@ -76,8 +76,8 @@ $ && adsfsdf || ls && pwd || izbickisucks ; ps
 An error message is shown. The contents of the current directory are displayed. The current working directory is displayed. The current processes are displayed.
 
 #Known Issues
-
-None currently. If you find any, let me know. 
+April 19, 2015 11:53pm: make clean didn't work once. Worked before and after though..
+April 19, 2015 9:30pm: None currently. If you find any, let me know. 
 
 #Works Cited(ish)
 
