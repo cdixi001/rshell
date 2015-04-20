@@ -41,14 +41,12 @@ Connectors are read from left to right. A blank or empty expression is evaluated
 
 ###Examples
 
-*
 ```
 $ ls -a || pwd
 $ asdfasdf || ps
 ```
 All files are listed. An error message for asdfasdf (an invalid executable) is shown and all current processes are listed.
 
-*
 ```
 $ ls -a && pwd
 $ adsfsdf && ps
@@ -57,7 +55,6 @@ $ adsfsdf && ps
 
 All files are listed and currently directory is displayed. An error message for adsfsdf is shown. Current processes are displayed.
 
-*
 ```
 $ adfsdf ; pwd
 ```
