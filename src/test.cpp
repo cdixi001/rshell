@@ -50,36 +50,45 @@ vector<char*> parser(string text, const char *delim) {
 */
 
 bool execvpstuff(vector<char*> &onecommand) {
+	bool returnval = true;
+	int pipearr[2];
 	char **command = &onecommand[0]; //stackoverflow.com/questions/5846934/
 		//EXECVP STUFF HERE
 	//http://github.com/mikeizbicki/ucr-cs100/blob/2015spring/textbook/assignment-help/syscalls/exec.md
 	if(onecommand.size() < 2) {
-		return true;
-	}
+		returnval = true;
+	} else {
 	
 	if(strcmp(command[0], "exit") == 0) {
-		cout << "theo exit" << endl;
+		onecommand.clear();
 		exit(0);
 	} else {
-
-	int pid = fork();
-	if(pid == -1) {
-		perror("Error with fork");
-		exit(1);
-	} else if(pid == 0) {	//child process
-		if(-1 == execvp(command[0], command)) {
-			perror("Error wit execvp");
+		pipe(pipearr);		//some pipe bs.
+		int pid = fork();
+		if(pid == -1) {
+			perror("Error with fork");
+			exit(1);
+		} else if(pid == 0) {	//child process
+			close(pipearr[0]);
+			if(-1 == execvp(command[0], command)) {
+				returnval = false;
+				write(pipearr[1], &returnval, sizeof(returnval));
+				close(pipearr[1]);
+				perror("Error wit execvp");
+			}
+			onecommand.clear();		//clear vector so it can hold next command.
+			exit(0);
 		}
-		onecommand.clear();		//clear vector so it can hold next command.
-		return false;
+		if(-1 == wait(0)) {
+			perror("error with wait");
+		}
+		close(pipearr[1]);
+		read(pipearr[0], &returnval, sizeof(returnval));
+		close(pipearr[0]);	
+		//parent here
+		onecommand.clear();
+		return returnval;
 	}
-	if(-1 == wait(0)) {
-		return false;
-		perror("wait error");
-	}
-	//parent here
-	onecommand.clear();
-	return true;
 	}
 }
 
@@ -102,7 +111,6 @@ void terminal() {
 	//shit starts here
 	//we will begin tonight's program by taking in 
 	getline(cin, input);
-	cout << input << endl;
 	
 	//add spaces before and after all operators in input
 	addSpaces(input, ";");
@@ -110,7 +118,6 @@ void terminal() {
 	addSpaces(input, "||");
 	addSpaces(input, "#");
 
-	cout << input << endl;	//testing if addSpaces actually works..
 	
 	//vector<char*> words;
 	//words = parser(arg, " "); //take out all spaces from arg
@@ -122,25 +129,19 @@ void terminal() {
 	strcpy(line, input.c_str());
 
 
-	char *token = strtok(line, " ");	//can be any character
+	char *token = strtok(line, " \t\n");	//can be any character
 	vector<char*> words;
 
 
 	while(token != NULL) {	
 		words.push_back(token);
-		token = strtok(NULL, " ");
+		token = strtok(NULL, " \t\n");
 	}
 
 //~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~`
 
-	char semi[] = ";";
-	words.push_back(semi);
-
-
-	for(size_t i = 0; i < words.size(); i++) {
-		cout << "words " << i << words.at(i) << endl;
-	}
-
+	char cmenot[] = ";";
+	words.push_back(cmenot);
 
 
 	vector<char*> onecommand;
@@ -154,10 +155,6 @@ void terminal() {
 	bool ispound;
 	bool isoperator;
 
-	bool isexit;
-	bool isblank;
-
-	
 	
 	size_t i = 0;
 	
@@ -168,25 +165,20 @@ void terminal() {
 		ispound = strcmp(words.at(i), "#") == 0;
 		isoperator = issemi || isand || isor || ispound;
 		
-		cout << "theo"<< i << words.at(i) << endl;
-
 		if(!isoperator) {
 			onecommand.push_back(words.at(i));
-			for(int j = 0; j < onecommand.size(); j++) cout << "oc " << j << onecommand.at(j) << endl;
+		//	for(int j = 0; j < onecommand.size(); j++) cout << "oc " << j << onecommand.at(j) << endl;
 		} else {
 			onecommand.push_back(NULL);
 			success = execvpstuff(onecommand);
 			if(issemi) {
 				onecommand.clear();
-				cout << "issemi" << endl;
 				//moveon
 			} else if(isand && success) {
 				//moveon
 				onecommand.clear();
-				cout << "isand && success" << endl;
 			} else if(isor && !success) {
 				onecommand.clear();
-				cout << "isor && success" << endl;
 				//moveon
 			} else {
 				break;
@@ -195,9 +187,6 @@ void terminal() {
 		i++;
 	}
 		
-
-	cout << "outside while" << endl;
-
 
 
 
@@ -211,11 +200,10 @@ void terminal() {
 
 int main(int argc, char* argv[]) {
 
-	cout << '$' << endl;
+	cout << "¤¤¡¡¡¡¡Bienvenidos a la terminál Rshell de Chirag!!!!!¤¤" << endl;
 	
 	while(1)
 	terminal();
 
 	return 0;
 }
-
