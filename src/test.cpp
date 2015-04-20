@@ -90,6 +90,7 @@ bool execvpstuff(vector<char*> &onecommand) {
 		return returnval;
 	}
 	}
+	return returnval;
 }
 
 
@@ -200,7 +201,7 @@ void terminal() {
 
 int main(int argc, char* argv[]) {
 
-	cout << "¤¤¡¡¡¡¡Bienvenidos a la terminál Rshell de Chirag!!!!!¤¤" << endl;
+	cout << "¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤" << endl;
 	
 	while(1)
 	terminal();
