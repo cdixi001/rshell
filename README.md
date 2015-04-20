@@ -67,7 +67,7 @@ $ adfsdf
 $ pwd
 ```
 
-Multiple Connectors
+####Multiple Connectors
 
 ```
 $ && adsfsdf || ls && pwd || izbickisucks ; ps
