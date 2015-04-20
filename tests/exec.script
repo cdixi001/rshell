@@ -1,0 +1,268 @@
+Script started on Sun 19 Apr 2015 11:05:16 PM PDT
+~
+cdixi001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd cs100[K[K[K[K[KDocuents[K[K[K[Kments/cs100/rshell
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (exec) [0;36m$[0m make
+mkdir bin
+g++ -Wall -Werror -ansi -pedantic ./src/test.cpp -o ./bin/rshell
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell
+¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤
+cdixi001§hammer.cs.ucr.edu: ls
+bin  LICENSE  Makefile	README.md  src	tests
+cdixi001§hammer.cs.ucr.edu: ls -a
+.  ..  bin  .git  .gitignore  LICENSE  Makefile  README.md  src  tests
+cdixi001§hammer.cs.ucr.edu: pwd
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu:      		 ps
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 3402 pts/53   00:00:00 ps
+cdixi001§hammer.cs.ucr.edu: ls -a -l -C -n -  m -q -s -t -i -g -f
+16916158 .   16916159 .git	  22327942 LICENSE  12836376 tests     24769858 bin
+12068469 ..  22327935 .gitignore  22327943 src	    10863302 Makefile  25358783 README.md
+cdixi001§hammer.cs.ucr.edu: ls -alsit   citsN
+total 40
+24769858 4 drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:00 bin
+16916158 4 drwx------ 6 cdixi001 csmajs 4096 Apr 19 23:00 .
+12836376 4 drwx------ 2 cdixi001 csmajs 4096 Apr 19 22:59 tests
+16916159 4 drwx------ 8 cdixi001 csmajs 4096 Apr 19 21:12 .git
+25358783 4 -rw------- 1 cdixi001 csmajs 2298 Apr 19 21:12 README.md
+10863302 4 -rw------- 1 cdixi001 csmajs  173 Apr 19 19:26 Makefile
+22327943 4 drwx------ 2 cdixi001 csmajs 4096 Apr 19 19:23 src
+12068469 4 drwx------ 5 cdixi001 csmajs 4096 Apr 19 00:14 ..
+22327942 4 -rw------- 1 cdixi001 csmajs 1473 Apr 16 12:57 LICENSE
+22327935 4 -rw------- 1 cdixi001 csmajs  242 Apr 16 12:57 .gitignore
+cdixi001§hammer.cs.ucr.edu: bin/rshell          cat READ    LICENSE
+Copyright (c) 2015, cdixi001
+All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are met:
+
+* Redistributions of source code must retain the above copyright notice, this
+  list of conditions and the following disclaimer.
+
+* Redistributions in binary form must reproduce the above copyright notice,
+  this list of conditions and the following disclaimer in the documentation
+  and/or other materials provided with the distribution.
+
+* Neither the name of rshell nor the names of its
+  contributors may be used to endorse or promote products derived from
+  this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
+AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
+IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
+FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
+DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
+SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
+CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
+OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+cdixi001§hammer.cs.ucr.edu: bin/rshell
+¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤
+cdixi001§hammer.cs.ucr.edu: ps
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 4278 pts/53   00:00:00 rshell
+ 4292 pts/53   00:00:00 ps
+cdixi001§hammer.cs.ucr.edu: c pwd   pwd   vi  vim src/test.cpp
+[?1000h7[?47h[?1h=[1;30r[m[H[2J[30;1H"src/test.cpp" 210L, 4790C[>c[1;1H[33m 80 [m[23C exit([33m0[m);
+[33m 81 [m[15C }
+[33m 82 [m[15C [33mif[m(-[33m1[m == wait([33m0[m)) {
+[33m 83 [m[23C perror([33m"error with wait"[m);
+[33m 84 [m[15C }
+[33m 85 [m[15C close(pipearr[[33m1[m]);
+[33m 86 [m[15C read(pipearr[[33m0[m], &returnval, [33msizeof[m(returnval));
+[33m 87 [m[15C close(pipearr[[33m0[m]);
+[33m 88 [m[15C [36m//parent here[m
+[33m 89 [m[15C onecommand.clear();
+[33m 90 [m[15C [33mreturn[m returnval;
+[33m 91 [m[7C }
+[33m 92 [m[7C }
+[33m 93 [m[7C [33mreturn[m returnval;
+[33m 94 [m}
+[33m 95 
+ 96 
+ 97 [m[32mvoid[m terminal() {
+[33m 98 [m[7C [36m//~~~~~~~~~~~~print username, hostnam, and prompte~~~~~~~~[m
+[33m 99 [m[7C [32mchar[m host[[33m32[m];[36m//add to readme: 32 cuz max is 64 and i dont want long printing[m
+[33m100 [m[7C [32mint[m pid;
+[33m101 
+102 [m[7C string input;
+[33m103 
+104 [m[7C pid = gethostname(host, [33m32[m);
+[33m105 [m[7C [33mif[m(pid == -[33m1[m) {[24C [36m//error[m
+[33m106 [m[15C perror([33m"gethostname"[m);
+[33m107 [m[7C } [33melse[m {
+[33m108 [m[16C [37m[44mcout[m << getlogin() << [33m"§"[m << host << [33m':'[m << [33m' '[m;[30;81H93,2-9[8C43%[14;13H[?1000l[?1002hP+q436f\P+q6b75\P+q6b64\P+q6b72\P+q6b6c\P+q2332\P+q2334\P+q2569\P+q2a37\P+q6b31\[30;1H[K[30;1H:wq[?1002l"src/test.cpp" 210L, 4790C written
+[?1l>[2J[?47l8cdixi001§hammer.cs.ucr.edu: exit
+cdixi001§hammer.cs.ucr.edu: ps
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 4403 pts/53   00:00:00 ps
+cdixi001§hammer.cs.ucr.edu: adfadf
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: mike izbicki sucks
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu:  	  	 	 ls  	   	 -a l
+total 24
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:00 bin
+-rw------- 1 cdixi001 csmajs 1473 Apr 16 12:57 LICENSE
+-rw------- 1 cdixi001 csmajs  173 Apr 19 19:26 Makefile
+-rw------- 1 cdixi001 csmajs 2298 Apr 19 21:12 README.md
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:08 src
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 22:59 tests
+cdixi001§hammer.cs.ucr.edu: ls    	  	 	   ls  	   -a 	 		-l
+total 40
+drwx------ 6 cdixi001 csmajs 4096 Apr 19 23:00 .
+drwx------ 5 cdixi001 csmajs 4096 Apr 19 00:14 ..
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:00 bin
+drwx------ 8 cdixi001 csmajs 4096 Apr 19 21:12 .git
+-rw------- 1 cdixi001 csmajs  242 Apr 16 12:57 .gitignore
+-rw------- 1 cdixi001 csmajs 1473 Apr 16 12:57 LICENSE
+-rw------- 1 cdixi001 csmajs  173 Apr 19 19:26 Makefile
+-rw------- 1 cdixi001 csmajs 2298 Apr 19 21:12 README.md
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:08 src
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 22:59 tests
+cdixi001§hammer.cs.ucr.edu: ls    ls -   || pwd
+bin  LICENSE  Makefile	README.md  src	tests
+cdixi001§hammer.cs.ucr.edu: ls || busra is awesome                      ps || busra is awesome
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 5156 pts/53   00:00:00 ps
+cdixi001§hammer.cs.ucr.edu: iz  izbicki         blah || pwd
+Error wit execvp: No such file or directory
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: pwd &&        ls -a && pwd
+.  ..  bin  .git  .gitignore  LICENSE  Makefile  README.md  src  tests
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: ls -  a && asdf    blah
+.  ..  bin  .git  .gitignore  LICENSE  Makefile  README.md  src  tests
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: blah && ps
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: blah && blah2
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: blah }}  || blah2
+Error wit execvp: No such file or directory
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: ls  ps  ;ls
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 6017 pts/53   00:00:00 ps
+bin  LICENSE  Makefile	README.md  src	tests
+cdixi001§hammer.cs.ucr.edu: ps   ;blah
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 6064 pts/53   00:00:00 ps
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: blah ;    ; pwd
+Error wit execvp: No such file or directory
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: blah   ; blah
+Error wit execvp: No such file or directory
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: ; ls -a
+.  ..  bin  .git  .gitignore  LICENSE  Makefile  README.md  src  tests
+cdixi001§hammer.cs.ucr.edu: 
+cdixi001§hammer.cs.ucr.edu: ;
+cdixi001§hammer.cs.ucr.edu: &&
+cdixi001§hammer.cs.ucr.edu: ||
+cdixi001§hammer.cs.ucr.edu: && blah
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: || blah
+cdixi001§hammer.cs.ucr.edu: || pwd #no  blank command is true
+cdixi001§hammer.cs.ucr.edu: &&    # ls ; pwd && ps || cat src/test.cpp
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/cdixi001/Documents/cs100/rshell
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 7046 pts/53   00:00:00 ps
+cdixi001§hammer.cs.ucr.edu: && a mikesucks      sucks || ls  &&pwd ||izbicki  ki         is zbi  bicki       a adfsd  ; ps
+Error wit execvp: No such file or directory
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: ^[[A^[[B
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: && aas   adsfasdf || ls && pwd || adsfasdf ; ps
+Error wit execvp: No such file or directory
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: ls  ls &&; pwd
+bin  LICENSE  Makefile	README.md  src	tests
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: pwd ||; ls  ps
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: ps
+  PID TTY          TIME CMD
+ 2677 pts/53   00:00:00 bash
+ 3286 pts/53   00:00:00 rshell
+ 8124 pts/53   00:00:00 ps
+cdixi001§hammer.cs.ucr.edu: pw  exit    exit
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell
+¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤
+cdixi001§hammer.cs.ucr.edu: exit -  weeeeeeee
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (exec) [0;36m$[0m bin/rshell
+¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤
+cdixi001§hammer.cs.ucr.edu: exit    ls -exit
+ls: invalid option -- 'e'
+Try `ls --help' for more information.
+cdixi001§hammer.cs.ucr.edu: pwd #yo mm o oma so     mma so fat, she       she tried to fit in                       shes on both sides of the fail  mily
+/home/csmajs/cdixi001/Documents/cs100/rshell
+cdixi001§hammer.cs.ucr.edu: #yo momma so stupid not   google           d id she go  t her figers stuck   in a website
+cdixi001§hammer.cs.ucr.edu: ls -l  # this is a comment
+total 24
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:00 bin
+-rw------- 1 cdixi001 csmajs 1473 Apr 16 12:57 LICENSE
+-rw------- 1 cdixi001 csmajs  173 Apr 19 19:26 Makefile
+-rw------- 1 cdixi001 csmajs 2298 Apr 19 21:12 README.md
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:08 src
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 22:59 tests
+cdixi001§hammer.cs.ucr.edu: ls -l;  || exit
+total 24
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:00 bin
+-rw------- 1 cdixi001 csmajs 1473 Apr 16 12:57 LICENSE
+-rw------- 1 cdixi001 csmajs  173 Apr 19 19:26 Makefile
+-rw------- 1 cdixi001 csmajs 2298 Apr 19 21:12 README.md
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 23:08 src
+drwx------ 2 cdixi001 csmajs 4096 Apr 19 22:59 tests
+cdixi001§hammer.cs.ucr.edu: ls -  a       adfsadf && exit
+Error wit execvp: No such file or directory
+cdixi001§hammer.cs.ucr.edu: see   see  ya     ya nerds ; exit &&
+Error wit execvp: No such file or directory
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (exec) [0;36m$[0m exit
+exit
+~
+cdixi001@hammer $ exit
+exit
+
+Script done on Sun 19 Apr 2015 11:40:04 PM PDT
