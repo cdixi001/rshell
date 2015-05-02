@@ -1,4 +1,4 @@
-all: bin/rshell bin/cp
+all: bin/rshell bin/cp bin/ls
 
 rshell: bin/rshell
 
@@ -7,6 +7,9 @@ bin/rshell: ./src/test.cpp | bin
 
 bin/cp: ./src/cp.cpp | bin
 	 g++ -Wall -Werror -ansi -pedantic ./src/cp.cpp -o ./bin/cp
+
+bin/ls: ./src/hw1.cpp | bin
+	 g++ -Wall -Werror -ansi -pedantic ./src/hw1.cpp -o ./bin/ls
 
 bin:
 	mkdir bin
