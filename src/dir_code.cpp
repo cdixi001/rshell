@@ -12,32 +12,19 @@ using namespace std;
 
 int main(int argc, char** argv)
 {
-    if(argc < 1)
+    if(argc <= 1)
     {
         cout << "Nothing passed in to argv." << endl;
         exit(1);
     }
     else
     {
-	int fd;
         DIR *dirp;
         if(NULL == (dirp = opendir(argv[1])))
         {
             perror("There was an error with opendir(). ");
-		if(-1 == (fd = open(argv[1], O_RDONLY))) {
-			perror("Praalam with open");
-			cout << "not a file or folder" << endl;
-			exit(1);
-		} else {
-			struct stat buf;
-			if(-1 == fstat(fd, &buf)) {
-				perror("Praalam with fstat()");
-				exit(1);
-			}
-			cout << argv[1] << ((S_IRUSR & buf.st_mode)?"r":"-") << endl;
-		}	
-
-        } else {
+            exit(1);
+        }
         struct dirent *filespecs;
         errno = 0;
         while(NULL != (filespecs = readdir(dirp)))
@@ -55,7 +42,6 @@ int main(int argc, char** argv)
             perror("There was an error with closedir(). ");
             exit(1);
         }
-	}
     }
     return 0;
 }
