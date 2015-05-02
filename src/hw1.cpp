@@ -24,84 +24,47 @@ void printdir(struct stat s, const char* dir, const bool &l, const bool &a, cons
 	}
 	struct dirent *filespecs;
 	errno = 0;
-
-
-	if(l) {
-		//l stuff here
+	
 	while(NULL != (filespecs = readdir(dirp))) {
-	dname = filespecs->d_name;
-			sub = currentdirectory + '/' + dname;
-			if(-1 == stat(sub.c_str(), &s)) {
-				
+		dname = filespecs->d_name;
+		sub = currentdirectory + '/' + dname;
+		if(-1 == stat(sub.c_str(), &s)) {		
 			cout << "theo" << filespecs->d_name << endl;
-				perror("error with stat");
-				cout << "not l: could not find file or directory" << endl;
-				exit(1);
-			}
- 			if(S_IFDIR & s.st_mode &&
+			perror("error with stat");
+			cout << "not l: could not find file or directory" << endl;
+			exit(1);
+		}
+ 		if(S_IFDIR & s.st_mode &&
 			(strcmp(filespecs->d_name, ".") != 0 &&
 			strcmp(filespecs->d_name, "..") != 0)) {
 				//char* vector stuff here with path appended or whatever
 				subdirs.push_back(sub.c_str());
-			}
-
-
-
-
-		
+		}
+	
 		if(a || (filespecs->d_name[0] != '.')) {
-		
-
-		cout	<< ((S_IFDIR & s.st_mode) ? "d":"-")
-			<< ((S_IRUSR & s.st_mode) ? "r":"-")
-			<< ((S_IWUSR & s.st_mode) ? "w":"-")
-			<< ((S_IXUSR & s.st_mode) ? "x":"-")
-			<< ((S_IRGRP & s.st_mode) ? "r":"-")
-			<< ((S_IWGRP & s.st_mode) ? "w":"-")
-			<< ((S_IXGRP & s.st_mode) ? "x":"-")
-			<< ((S_IROTH & s.st_mode) ? "r":"-")
-			<< ((S_IWOTH & s.st_mode) ? "w":"-")
-			<< ((S_IXOTH & s.st_mode) ? "x":"-")
-			<< ' '
-			<< s.st_nlink << ' '
-			<< s.st_uid << ' ' << s.st_gid << ' '
-			<< s.st_size << ' ' //some block crap here
-			<< filespecs->d_name
-			<< endl;
-		}
-		}
-
-
-
-	} else {
-		//non l stuff
-
-
-		while(NULL != (filespecs = readdir(dirp))) {
-			dname = filespecs->d_name;
-			sub = currentdirectory + '/' + dname;
-			if(-1 == stat(sub.c_str(), &s)) {
-				
-			cout << "theo" << filespecs->d_name << endl;
-				perror("error with stat");
-				cout << "not l: could not find file or directory" << endl;
-				exit(1);
-			}
- 			if(S_IFDIR & s.st_mode &&
-			(strcmp(filespecs->d_name, ".") != 0 &&
-			strcmp(filespecs->d_name, "..") != 0)) {
-				//char* vector stuff here with path appended or whatever
-				subdirs.push_back(sub.c_str());
-			}
-
-			if(a || filespecs->d_name[0] != '.') {
+			if(l) {	
+			cout	<< ((S_IFDIR & s.st_mode) ? "d":"-")
+				<< ((S_IRUSR & s.st_mode) ? "r":"-")
+				<< ((S_IWUSR & s.st_mode) ? "w":"-")
+				<< ((S_IXUSR & s.st_mode) ? "x":"-")
+				<< ((S_IRGRP & s.st_mode) ? "r":"-")
+				<< ((S_IWGRP & s.st_mode) ? "w":"-")
+				<< ((S_IXGRP & s.st_mode) ? "x":"-")
+				<< ((S_IROTH & s.st_mode) ? "r":"-")
+				<< ((S_IWOTH & s.st_mode) ? "w":"-")
+				<< ((S_IXOTH & s.st_mode) ? "x":"-")
+				<< ' '
+				<< s.st_nlink << ' '
+				<< s.st_uid << ' ' << s.st_gid << ' '
+				<< s.st_size << ' ' //some block crap here
+				<< filespecs->d_name
+				<< endl;
+			} else {
 				cout << filespecs->d_name << ' ';
 			}
 		}
-
-
-
 	}
+
 
 	if(errno != 0) {
 		perror("error with readdir()");
