@@ -12,8 +12,11 @@
 using namespace std;
 
 void printdir(struct stat s, const char* dir, const bool &l, const bool &a, const bool &R) {
-	cout << "current directory: " << dir << endl;
 	vector<const char*> subdirs;
+	string currentdirectory = dir;
+	string dname = "";
+	string sub = "";
+
 	DIR *dirp;
 	if(NULL == (dirp = opendir(dir))) {
 		perror("error with oepndir(). ");
@@ -22,28 +25,35 @@ void printdir(struct stat s, const char* dir, const bool &l, const bool &a, cons
 	struct dirent *filespecs;
 	errno = 0;
 
+
 	if(l) {
 		//l stuff here
-	while(NULL != (filespecs = readdir(dirp))) {	
+	while(NULL != (filespecs = readdir(dirp))) {
+	dname = filespecs->d_name;
+			sub = currentdirectory + '/' + dname;
+			if(-1 == stat(sub.c_str(), &s)) {
+				
+			cout << "theo" << filespecs->d_name << endl;
+				perror("error with stat");
+				cout << "not l: could not find file or directory" << endl;
+				exit(1);
+			}
+ 			if(S_IFDIR & s.st_mode &&
+			(strcmp(filespecs->d_name, ".") != 0 &&
+			strcmp(filespecs->d_name, "..") != 0)) {
+				//char* vector stuff here with path appended or whatever
+				subdirs.push_back(sub.c_str());
+			}
+
+
+
+
+		
 		if(a || (filespecs->d_name[0] != '.')) {
 		
-		if(-1 == stat(filespecs->d_name, &s)) {
-			perror("error with stat");
-			cout << "could not find file or directory" << endl;
-			exit(1);
-		}
- 
-		if(S_IFDIR & s.st_mode && (strcmp(filespecs->d_name, ".") != 0 && strcmp(filespecs->d_name, "..") != 0)) {
-			cout << "d";
-			char subdir[strlen(dir) + strlen(filespecs->d_name) + 1];
-			strcpy(subdir, dir);
-			strcat(subdir, "/");
-			strcat(subdir, filespecs->d_name);
-			subdirs.push_back(subdir);
-			//char* vector stuff here with path appended or whatever
-		} else cout << '-';
 
-		cout	<< ((S_IRUSR & s.st_mode) ? "r":"-")
+		cout	<< ((S_IFDIR & s.st_mode) ? "d":"-")
+			<< ((S_IRUSR & s.st_mode) ? "r":"-")
 			<< ((S_IWUSR & s.st_mode) ? "w":"-")
 			<< ((S_IXUSR & s.st_mode) ? "x":"-")
 			<< ((S_IRGRP & s.st_mode) ? "r":"-")
@@ -67,11 +77,12 @@ void printdir(struct stat s, const char* dir, const bool &l, const bool &a, cons
 		//non l stuff
 
 
-
 		while(NULL != (filespecs = readdir(dirp))) {
-			if(-1 == stat(filespecs->d_name, &s)) {
+			dname = filespecs->d_name;
+			sub = currentdirectory + '/' + dname;
+			if(-1 == stat(sub.c_str(), &s)) {
 				
-			cout << "theo" << filespecs->d_name;
+			cout << "theo" << filespecs->d_name << endl;
 				perror("error with stat");
 				cout << "not l: could not find file or directory" << endl;
 				exit(1);
@@ -80,9 +91,6 @@ void printdir(struct stat s, const char* dir, const bool &l, const bool &a, cons
 			(strcmp(filespecs->d_name, ".") != 0 &&
 			strcmp(filespecs->d_name, "..") != 0)) {
 				//char* vector stuff here with path appended or whatever
-				string currentdirectory = dir;
-				string dname = filespecs->d_name;
-				string sub = currentdirectory + '/' + dname;
 				subdirs.push_back(sub.c_str());
 			}
 
