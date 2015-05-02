@@ -1,0 +1,2551 @@
+Script started on Fri 01 May 2015 11:54:37 PM PDT
+~
+cdixi001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd Documents/cs100/rshell
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m make
+make: Nothing to be done for `all'.
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m make clean
+rm -rf bin
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m make
+mkdir bin
+g++ -Wall -Werror -ansi -pedantic ./src/test.cpp -o ./bin/rshell
+g++ -Wall -Werror -ansi -pedantic ./src/cp.cpp -o ./bin/cp
+g++ -Wall -Werror -ansi -pedantic ./src/hw1.cpp -o ./bin/ls
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m /bin[K[K[K[Kbin/ls
+LICENSE Makefile README.md src bin tests 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -a
+. .. .git .gitignore LICENSE Makefile README.md src bin tests 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -l
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+
+total = 24
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -l[KR
+LICENSE Makefile README.md src bin tests 
+
+./bin:
+rshell cp ls 
+
+./src:
+main.cpp test.cpp Timer.h cp.cpp dir_code.cpp hw1.cpp a.out testdir dir_codeold.cpp kakoos blah.txt 
+
+./src/kakoos:
+kakoos.cpp 
+
+./src/testdir:
+fileintestdir testdir2 
+
+./src/testdir/testdir2:
+fileintestdir2 
+
+./tests:
+exec.script ls.script 
+
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m /bin[K[K[K[K
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls src
+main.cpp test.cpp Timer.h cp.cpp dir_code.cpp hw1.cpp a.out testdir dir_codeold.cpp kakoos blah.txt 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls Makefile
+Makefile
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -l src
+-rw------- 1  36644     950    4447   Apr 20 06:41   main.cpp  
+-rw------- 1  36644     950    4790   Apr 20 06:41   test.cpp  
+-rw------- 1  36644     950    2698   Apr 27 23:42   Timer.h   
+-rw------- 1  36644     950    2274   Apr 27 23:42   cp.cpp    
+-rw------- 1  36644     950    991    May  2 06:37   dir_code.cpp
+-rw------- 1  36644     950    7760   May  2 06:47   hw1.cpp   
+-rwx------ 1  36644     950    40145  May  2 03:59   a.out     
+drwx------ 3  36644     950    4096   May  2 03:44   testdir   
+-rw------- 1  36644     950    1307   May  1 03:32   dir_codeold.cpp
+drwx------ 2  36644     950    4096   May  1 23:11   kakoos    
+-rw------- 1  36644     950    0      May  2 06:35   blah.txt  
+
+total = 88
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls 0[K-; [K[K;[Kl Makefile
+-rw------- 1 cdixi001 csmajs 367  Makefile
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -al
+drwx------ 6  36644     950    4096   May  2 06:49   .         
+drwx------ 7  36644     950    4096   Apr 27 23:44   ..        
+drwx------ 8  36644     950    4096   May  2 06:38   .git      
+-rw------- 1  36644     950    242    Apr 16 19:57   .gitignore
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+
+total = 40
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -a -l
+drwx------ 6  36644     950    4096   May  2 06:49   .         
+drwx------ 7  36644     950    4096   Apr 27 23:44   ..        
+drwx------ 8  36644     950    4096   May  2 06:38   .git      
+-rw------- 1  36644     950    242    Apr 16 19:57   .gitignore
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+
+total = 40
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -a -R
+. .. .git .gitignore LICENSE Makefile README.md src bin tests 
+
+./.git:
+. .. refs branches info hooks description objects HEAD config logs packed-refs COMMIT_EDITMSG index FETCH_HEAD COMMIT_EDITMSG~ ORIG_HEAD MERGE_MSG~ 
+
+./.git/branches:
+. .. 
+
+./.git/hooks:
+. .. pre-push.sample pre-rebase.sample applypatch-msg.sample prepare-commit-msg.sample update.sample commit-msg.sample pre-applypatch.sample pre-commit.sample post-update.sample 
+
+./.git/info:
+. .. exclude 
+
+./.git/logs:
+. .. refs HEAD 
+
+./.git/logs/refs:
+. .. remotes heads 
+
+./.git/logs/refs/heads:
+. .. master exec ls 
+
+./.git/logs/refs/remotes:
+. .. origin 
+
+./.git/logs/refs/remotes/origin:
+. .. HEAD exec master ls 
+
+./.git/objects:
+. .. pack info d7 f4 b8 50 f0 12 10 d1 ae 98 db 5a b4 9b 4a b0 dd 55 d2 c7 19 87 a4 88 9c 05 8e 54 61 bc ad 31 86 4f bf 66 13 7b 18 0e 6d 83 c3 cc b3 e9 d5 59 63 97 26 3f e8 9e 15 45 d8 74 17 e5 b1 25 81 79 a1 1d 0b 89 e0 f5 e6 53 4e 30 68 11 04 ba d0 52 a8 9a e7 2b 23 d9 8f 06 f7 72 a9 
+
+./.git/objects/04:
+. .. 3fe6d5232845a4acda1ebc65f85d0bd943ab54 
+
+./.git/objects/05:
+. .. d00ec17aadf64ce546ad1070e3d5d6d4a1d084 
+
+./.git/objects/06:
+. .. 03779bfa7461b2baa687ba614e2101e17b5793 
+
+./.git/objects/0b:
+. .. 2e036c4c4ff4f8587a71f8420bbbf57cd4865e 
+
+./.git/objects/0e:
+. .. 4893a20505d5446b36e46d18048d430dc28e4d 
+
+./.git/objects/10:
+. .. 1a0c18fb2720b3097d18a2602c55b3668e2ef0 
+
+./.git/objects/11:
+. .. 13099b070f61044af438fa4d1e61f30a059f12 81b896600b03bf011404176b4e6190fac2ac0a 
+
+./.git/objects/12:
+. .. 7faf2a58a44def594c51c24427e4861e9725dc cb35cf114df0ed12208cadf5c4f8798412a892 
+
+./.git/objects/13:
+. .. 7f022689a975c941571b6b704cc9cfd82b86ca 
+
+./.git/objects/15:
+. .. 9a2157afb7379efc91c81548c6cd71df391f06 
+
+./.git/objects/17:
+. .. a7b577202e8e61ef0473f98e30835f134204f1 
+
+./.git/objects/18:
+. .. cf3d64bac58e5ab668f7a3d1edb0f593c571e0 
+
+./.git/objects/19:
+. .. c94df17c9b466763af6314a317074d0b8a5214 37cf6b0ba221fb4c600f22e4db972bd4f0403e 
+
+./.git/objects/1d:
+. .. 30b69dee6c58ccc6b0170020879cfda84789f5 
+
+./.git/objects/23:
+. .. 8a8c78ba7fd049e6f4ff0b3322145e1e30bbbf 
+
+./.git/objects/25:
+. .. 4bedfefb66b43381270722c6e88bef7ae7db0e 
+
+./.git/objects/26:
+. .. 7e30fc5a9658293a5ee86e00551c09645b7a99 4a49c342cb7c661409b9baa3a89981ef7fb9bd 
+
+./.git/objects/2b:
+. .. 07822ed2174a19936484d9a1c4e9ee0a5ec4de 
+
+./.git/objects/30:
+. .. 584957b85fbf257884fa8b5a562a567d4ccb21 
+
+./.git/objects/31:
+. .. e690e739328351d72940ba03615754f2f419cf 
+
+./.git/objects/3f:
+. .. 3e0e50633ad719437d36b6a9e833ded6780052 
+
+./.git/objects/45:
+. .. f53899952266bf4bd772e516ae21d12098d538 
+
+./.git/objects/4a:
+. .. 5580b3531844dbaa6ea8693833e33ed08e89a8 
+
+./.git/objects/4e:
+. .. d479b2170a8f320e7c26f106bdfef214e5cdef 51be0bcda524afd94e79e12c9002b5111056f9 80b7cf1f0c6cc62c2d849755cb939f6b44aa04 
+
+./.git/objects/4f:
+. .. fa9e8a172cb7d681086a8bbcdcd3196b9d0272 d4ec575ac6e36dceb969ed2e7b9039821e705b 
+
+./.git/objects/50:
+. .. f7e02d1e7329ddd4da5203e896d915b0d2c51e 
+
+./.git/objects/52:
+. .. bba21ec67231240400809866187a134a0bd443 
+
+./.git/objects/53:
+. .. 0dcd851bf5f8c86e04d6e2c0c0f58e04fd42d6 ad19b3080b82be674bfd05e6b0670adbb1a458 
+
+./.git/objects/54:
+. .. 668ad302003f4389ca2d5f1741c936eca000ab ad99bcdc798eb0d590a24ff327b21cd0183d96 
+
+./.git/objects/55:
+. .. c31ba922b2541e0626d80cdf5f897752c4a2b8 
+
+./.git/objects/59:
+. .. 9ff0ab84bb51ecb9e1c8afef4bffd5aaacfd08 
+
+./.git/objects/5a:
+. .. 93a9a3978c15590bf9a7853e322fb85d6ed9fb 
+
+./.git/objects/61:
+. .. 450c729590aca2e13fd3f87c6e27cab33c049b 
+
+./.git/objects/63:
+. .. 7848177497c4a2ce70b664c5562aa6b37457d1 
+
+./.git/objects/66:
+. .. 50d0982b55d563ef05d984d709bbfedd1b3159 
+
+./.git/objects/68:
+. .. 700d444a8880708c73c3be27d7b6e77001d46a 
+
+./.git/objects/6d:
+. .. d9dcb5ef3aa3bcc2c448689f7faa95f87d0cb8 da2a4a55cb7ec543841f492620f143a5f698bf 
+
+./.git/objects/72:
+. .. 93adbcc9b0f35c6206af0cf5f75dfdd553ab5f 
+
+./.git/objects/74:
+. .. 9553288378d0461a85b85133add2ce45881826 
+
+./.git/objects/79:
+. .. e28a31e07f7dda382d28ad5b43b0e832f7d350 
+
+./.git/objects/7b:
+. .. 68a4d171ce4f4fabbd3963178770ef3f3cb00f 
+
+./.git/objects/81:
+. .. ece1c5cc35ece71394203788e77093a27abdd8 
+
+./.git/objects/83:
+. .. f5fe5e7105d19eaea0af3b96322ef423916c8d 
+
+./.git/objects/86:
+. .. 7f76fcfcc07473560aa3546ef5e751887a6473 321c841c0b83ace6335876130fb74f3a5303e9 
+
+./.git/objects/87:
+. .. 7a986d4b4113fdfdedb6e596a70d70051208cb 688dac69b6b3cc795370b3f1b8e4fb59c76d5d 
+
+./.git/objects/88:
+. .. 50ac38f8e6fa356f5a36c84eb1658b708b14a4 42f6ef3f88c44ecb5bcb2e31b2ac916d7098a6 
+
+./.git/objects/89:
+. .. 3f5b80075055f1095f7fd15477b46bc28d4c83 
+
+./.git/objects/8e:
+. .. 663c7ecf6ae619d77a1fcf4a052a05d2a28307 
+
+./.git/objects/8f:
+. .. 86b21c33cad39d8e2c685a386e001701e686ce 
+
+./.git/objects/97:
+. .. 571440bddf7af8d6765eb74ab30470d04d1f1b 
+
+./.git/objects/98:
+. .. efd7bddc05d7b78bf0d77a3ea0c656f6e858c2 
+
+./.git/objects/9a:
+. .. e5d86246c236473a05c22341729193bc2a3f26 
+
+./.git/objects/9b:
+. .. f74e77d6c66db602dc22b3db2aa9d37e582b77 df0f9c0ac56ae821e06229586982dc2bf11b9f 
+
+./.git/objects/9c:
+. .. 5fdd41faa5b599e4fbeff2f257238672ebb94f 
+
+./.git/objects/9e:
+. .. cf447cd1712cf1f1ff28449f48b3d0c44b6eb4 
+
+./.git/objects/a1:
+. .. a29165c98bf70114fc41d54c4778beabc7cdb8 
+
+./.git/objects/a4:
+. .. 6f2b6a08551e75de4897bd47e1b5d1cf0eab8a 
+
+./.git/objects/a8:
+. .. de3754c1844178ed244da0ee1b25aefd25da81 
+
+./.git/objects/a9:
+. .. e0446cfb359e2cf66138572c2e49fe129996fe 
+
+./.git/objects/ad:
+. .. d24d3c5de8f3298d2da20b9cae353cc96e08b6 
+
+./.git/objects/ae:
+. .. ffc555a884e3d0ff194bb0eb1790745d5cf73d f54298bfc993960578c00712dd714931391c53 
+
+./.git/objects/b0:
+. .. bc43bec685dca0a239ec45d5215cf1afdf7729 
+
+./.git/objects/b1:
+. .. 62200f9e5be81d21ac693b197fab52bc22ad63 
+
+./.git/objects/b3:
+. .. 773e40dc4473861fbb40916ea461c451f7ffa2 207810db48a688722cf5e9faa7387a4df61e3f 
+
+./.git/objects/b4:
+. .. 9eb7198ac29954b14f5f89bc2f4ac4d506f94c 
+
+./.git/objects/b8:
+. .. bd0267bdf1a5e02793430b53cbbebd6c257f6f c336b68739dc6af62223616cbf6d69eaa5ced0 
+
+./.git/objects/ba:
+. .. 300377c1c1785d6ac8365a01248df9b6a73212 
+
+./.git/objects/bc:
+. .. 22d4f6a622682db3fc6eb2a0470a021a719c6d 
+
+./.git/objects/bf:
+. .. 5abd7d4f06b80d6bb2e40b1de5aa8435d4b85c 
+
+./.git/objects/c3:
+. .. 66ef8a90179f600dd62e47105b65a1bed3f4ca 
+
+./.git/objects/c7:
+. .. 4b46f67a73f1adec6d5a050ad04a630432b33e 9ef7eb9a34fad63fab02a219d31649582ab63d d964408312d7cf40fe20be44415bee317e3f31 
+
+./.git/objects/cc:
+. .. eb74b808110bdd215bbbbab1d0e0ee1ba7c65a 
+
+./.git/objects/d0:
+. .. 78dc271a6a01480e1a510a43f60990013ca183 
+
+./.git/objects/d1:
+. .. 7a233d1554d5bdd0e1e541fac5c728d5fda0a5 4d1eeee72df81b22387e63ce91b54c7f0e8b86 8166fea233f0fc5bf9a7dc71c5704b6a8cbb79 
+
+./.git/objects/d2:
+. .. bbdd2ce4bafb6ccbfb9ff05f14e8867726f045 
+
+./.git/objects/d5:
+. .. 5bc93d8a0dcc8dc7817954501bb6adb9ddf881 
+
+./.git/objects/d7:
+. .. b16ebf03870eb09c78ef4dfe5aa593c1d3fc0e 
+
+./.git/objects/d8:
+. .. 24a31d4125c7d7d2cae91d6731e88c566a7479 
+
+./.git/objects/d9:
+. .. 1b275e8ec31f75a395eb798cf7bfb342c38ba0 
+
+./.git/objects/db:
+. .. 5169e81547723cdf084b3c51031c3dea39083f e5faf493a70e60edc3f5226615cc8fda039a97 10514191fa292318c8d9b08bbd353d939bd130 
+
+./.git/objects/dd:
+. .. 4c4a2e875dabd9b285d3bb974f79440e302dbb 1be155c291bd661265ecc158a4586f5e2285ff 
+
+./.git/objects/e0:
+. .. 950441f8c3b4de07b67b75263553b487dea0ab 
+
+./.git/objects/e5:
+. .. 46018edbf44cfa4f894152456b67bbe7419869 
+
+./.git/objects/e6:
+. .. 9de29bb2d1d6434b8b29ae775ad8c2e48c5391 
+
+./.git/objects/e7:
+. .. 420ca7ee29ea4d1bc537747f9fc5651847e79e 
+
+./.git/objects/e8:
+. .. 637cfba20dc328c744a9c01afd4f482ea29e84 
+
+./.git/objects/e9:
+. .. 6f6ba6baa43b2f54e37b0dd7bd8b1699cd2a25 8b0c704ce6f27e6a096f049a7613dabc1f5357 
+
+./.git/objects/f0:
+. .. d88eb50a2677eb9e778f9953baf8f44c7b95be 3bdfbf3730850af69d487a0c82f93e100ee5bf e3f65a3c9c709f04d5b354b0757d14f2737067 
+
+./.git/objects/f4:
+. .. adffafe233636df6539e60c15169fe0b728a0c b8653b51d974b694f42bfe5ca3a6501cd63954 e13dede06432571cc180b504467ba58139ffeb 
+
+./.git/objects/f5:
+. .. 5d7cf85442629de25d1402fe0a68c2ff8a7510 
+
+./.git/objects/f7:
+. .. 58e66a68a5a327b1afaa855424a5e32f9749b4 
+
+./.git/objects/info:
+. .. 
+
+./.git/objects/pack:
+. .. 
+
+./.git/refs:
+. .. heads tags remotes 
+
+./.git/refs/heads:
+. .. master exec ls 
+
+./.git/refs/remotes:
+. .. origin 
+
+./.git/refs/remotes/origin:
+. .. HEAD exec master ls 
+
+./.git/refs/tags:
+. .. hw0 hw1 
+
+./bin:
+. .. rshell cp ls 
+
+./src:
+. .. main.cpp test.cpp Timer.h cp.cpp dir_code.cpp hw1.cpp a.out testdir .testdot dir_codeold.cpp kakoos blah.txt 
+
+./src/kakoos:
+. .. kakoos.cpp 
+
+./src/testdir:
+. .. fileintestdir testdir2 
+
+./src/testdir/testdir2:
+. .. fileintestdir2 
+
+./tests:
+. .. exec.script ls.script 
+
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -lR
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+
+total = 24
+
+./bin:
+-rwx------ 1  36644     950    27462  May  2 06:49   rshell    
+-rwx------ 1  36644     950    15997  May  2 06:49   cp        
+-rwx------ 1  36644     950    72292  May  2 06:49   ls        
+
+total = 120
+
+./src:
+-rw------- 1  36644     950    4447   Apr 20 06:41   main.cpp  
+-rw------- 1  36644     950    4790   Apr 20 06:41   test.cpp  
+-rw------- 1  36644     950    2698   Apr 27 23:42   Timer.h   
+-rw------- 1  36644     950    2274   Apr 27 23:42   cp.cpp    
+-rw------- 1  36644     950    991    May  2 06:37   dir_code.cpp
+-rw------- 1  36644     950    7760   May  2 06:47   hw1.cpp   
+-rwx------ 1  36644     950    40145  May  2 03:59   a.out     
+drwx------ 3  36644     950    4096   May  2 03:44   testdir   
+-rw------- 1  36644     950    1307   May  1 03:32   dir_codeold.cpp
+drwx------ 2  36644     950    4096   May  1 23:11   kakoos    
+-rw------- 1  36644     950    0      May  2 06:35   blah.txt  
+
+total = 88
+
+./src/kakoos:
+-rw------- 1  36644     950    11     May  1 23:11   kakoos.cpp
+
+total = 0
+
+./src/testdir:
+-rw------- 1  36644     950    0      May  1 21:41   fileintestdir
+drwx------ 2  36644     950    4096   May  2 03:45   testdir2  
+
+total = 4
+
+./src/testdir/testdir2:
+-rw------- 1  36644     950    0      May  2 03:45   fileintestdir2
+
+total = 0
+
+./tests:
+-rw------- 1  36644     950    14269  Apr 20 06:43   exec.script
+-rw------- 1  36644     950    0      May  2 06:48   ls.script 
+
+total = 16
+
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -al
+drwx------ 6  36644     950    4096   May  2 06:49   .         
+drwx------ 7  36644     950    4096   Apr 27 23:44   ..        
+drwx------ 8  36644     950    4096   May  2 06:38   .git      
+-rw------- 1  36644     950    242    Apr 16 19:57   .gitignore
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+
+total = 40
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls sdfgsdfg
+error with stat: No such file or directory
+could not find file or directory
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m mkdir .dotfolder
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls .dotfolder -a
+. .. 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls .dotfolder
+
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m touch .dotfile
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls .dotfile
+.dotfile
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls .dotfile -la
+-rw------- 1 cdixi001 csmajs 0  .dotfile
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls ../.
+ucr-cs100 hw0 rshell peter uriel 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls .
+LICENSE Makefile README.md src bin tests 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -a -l -R
+drwx------ 7  36644     950    4096   May  2 06:52   .         
+drwx------ 7  36644     950    4096   Apr 27 23:44   ..        
+drwx------ 8  36644     950    4096   May  2 06:38   .git      
+-rw------- 1  36644     950    242    Apr 16 19:57   .gitignore
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+drwx------ 2  36644     950    4096   May  2 06:51   .dotfolder
+-rw------- 1  36644     950    0      May  2 06:52   .dotfile  
+
+total = 44
+
+./.dotfolder:
+drwx------ 2  36644     950    4096   May  2 06:51   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+
+total = 8
+
+./.git:
+drwx------ 8  36644     950    4096   May  2 06:38   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+drwx------ 5  36644     950    4096   Apr 16 19:57   refs      
+drwx------ 2  36644     950    4096   Apr 16 19:57   branches  
+drwx------ 2  36644     950    4096   Apr 16 19:57   info      
+drwx------ 2  36644     950    4096   Apr 16 19:57   hooks     
+-rw------- 1  36644     950    73     Apr 16 19:57   description
+drwx------ 95 36644     950    4096   May  2 06:36   objects   
+-rw------- 1  36644     950    23     May  2 06:37   HEAD      
+-rw------- 1  36644     950    263    Apr 16 19:57   config    
+drwx------ 3  36644     950    4096   Apr 16 19:57   logs      
+-rw------- 1  36644     950    107    Apr 16 19:57   packed-refs
+-rw------- 1  36644     950    7      May  2 06:36   COMMIT_EDITMSG
+-rw------- 1  36644     950    968    May  2 06:38   index     
+-rw------- 1  36644     950    203    Apr 27 23:42   FETCH_HEAD
+-rw------- 1  36644     950    314    Apr 19 21:06   COMMIT_EDITMSG~
+-rw------- 1  36644     950    41     May  2 06:37   ORIG_HEAD 
+-rw------- 1  36644     950    257    May  2 06:35   MERGE_MSG~
+
+total = 60
+
+./.git/branches:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+
+total = 8
+
+./.git/hooks:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+-rwx------ 1  36644     950    1348   Apr 16 19:57   pre-push.sample
+-rwx------ 1  36644     950    4951   Apr 16 19:57   pre-rebase.sample
+-rwx------ 1  36644     950    452    Apr 16 19:57   applypatch-msg.sample
+-rwx------ 1  36644     950    1239   Apr 16 19:57   prepare-commit-msg.sample
+-rwx------ 1  36644     950    3611   Apr 16 19:57   update.sample
+-rwx------ 1  36644     950    896    Apr 16 19:57   commit-msg.sample
+-rwx------ 1  36644     950    398    Apr 16 19:57   pre-applypatch.sample
+-rwx------ 1  36644     950    1635   Apr 16 19:57   pre-commit.sample
+-rwx------ 1  36644     950    189    Apr 16 19:57   post-update.sample
+
+total = 48
+
+./.git/info:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+-rw------- 1  36644     950    240    Apr 16 19:57   exclude   
+
+total = 12
+
+./.git/logs:
+drwx------ 3  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+drwx------ 4  36644     950    4096   Apr 16 19:57   refs      
+-rw------- 1  36644     950    10227  May  2 06:37   HEAD      
+
+total = 24
+
+./.git/logs/refs:
+drwx------ 4  36644     950    4096   Apr 16 19:57   .         
+drwx------ 3  36644     950    4096   Apr 16 19:57   ..        
+drwx------ 3  36644     950    4096   Apr 16 19:57   remotes   
+drwx------ 2  36644     950    4096   Apr 29 05:12   heads     
+
+total = 16
+
+./.git/logs/refs/heads:
+drwx------ 2  36644     950    4096   Apr 29 05:12   .         
+drwx------ 4  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    1014   May  2 06:37   master    
+-rw------- 1  36644     950    3449   Apr 20 06:41   exec      
+-rw------- 1  36644     950    1776   May  2 06:36   ls        
+
+total = 20
+
+./.git/logs/refs/remotes:
+drwx------ 3  36644     950    4096   Apr 16 19:57   .         
+drwx------ 4  36644     950    4096   Apr 16 19:57   ..        
+drwx------ 2  36644     950    4096   Apr 29 06:49   origin    
+
+total = 12
+
+./.git/logs/refs/remotes/origin:
+drwx------ 2  36644     950    4096   Apr 29 06:49   .         
+drwx------ 3  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    192    Apr 16 19:57   HEAD      
+-rw------- 1  36644     950    2652   Apr 20 06:41   exec      
+-rw------- 1  36644     950    628    Apr 29 06:47   master    
+-rw------- 1  36644     950    1092   May  2 06:34   ls        
+
+total = 24
+
+./.git/objects:
+drwx------ 95 36644     950    4096   May  2 06:36   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+drwx------ 2  36644     950    4096   Apr 16 19:57   pack      
+drwx------ 2  36644     950    4096   Apr 16 19:57   info      
+drwx------ 2  36644     950    4096   Apr 16 19:57   d7        
+drwx------ 2  36644     950    4096   May  2 00:35   f4        
+drwx------ 2  36644     950    4096   Apr 19 21:06   b8        
+drwx------ 2  36644     950    4096   Apr 16 19:57   50        
+drwx------ 2  36644     950    4096   May  2 06:36   f0        
+drwx------ 2  36644     950    4096   Apr 27 23:41   12        
+drwx------ 2  36644     950    4096   Apr 16 20:05   10        
+drwx------ 2  36644     950    4096   Apr 20 01:25   d1        
+drwx------ 2  36644     950    4096   Apr 19 00:31   ae        
+drwx------ 2  36644     950    4096   Apr 17 05:32   98        
+drwx------ 2  36644     950    4096   May  1 23:05   db        
+drwx------ 2  36644     950    4096   Apr 17 05:32   5a        
+drwx------ 2  36644     950    4096   Apr 18 03:17   b4        
+drwx------ 2  36644     950    4096   May  1 03:30   9b        
+drwx------ 2  36644     950    4096   Apr 18 03:18   4a        
+drwx------ 2  36644     950    4096   Apr 19 00:30   b0        
+drwx------ 2  36644     950    4096   Apr 20 04:08   dd        
+drwx------ 2  36644     950    4096   Apr 19 00:36   55        
+drwx------ 2  36644     950    4096   Apr 19 02:14   d2        
+drwx------ 2  36644     950    4096   Apr 20 06:55   c7        
+drwx------ 2  36644     950    4096   Apr 20 04:04   19        
+drwx------ 2  36644     950    4096   May  2 00:24   87        
+drwx------ 2  36644     950    4096   Apr 19 06:58   a4        
+drwx------ 2  36644     950    4096   Apr 29 06:46   88        
+drwx------ 2  36644     950    4096   Apr 19 06:58   9c        
+drwx------ 2  36644     950    4096   Apr 19 06:58   05        
+drwx------ 2  36644     950    4096   Apr 19 21:06   8e        
+drwx------ 2  36644     950    4096   Apr 20 04:12   54        
+drwx------ 2  36644     950    4096   Apr 19 21:07   61        
+drwx------ 2  36644     950    4096   Apr 20 01:25   bc        
+drwx------ 2  36644     950    4096   Apr 20 01:25   ad        
+drwx------ 2  36644     950    4096   Apr 20 01:25   31        
+drwx------ 2  36644     950    4096   May  2 00:36   86        
+drwx------ 2  36644     950    4096   May  1 03:30   4f        
+drwx------ 2  36644     950    4096   Apr 20 02:34   bf        
+drwx------ 2  36644     950    4096   Apr 20 02:34   66        
+drwx------ 2  36644     950    4096   Apr 20 02:34   13        
+drwx------ 2  36644     950    4096   Apr 20 03:05   7b        
+drwx------ 2  36644     950    4096   Apr 20 03:05   18        
+drwx------ 2  36644     950    4096   Apr 20 03:55   0e        
+drwx------ 2  36644     950    4096   Apr 29 06:44   6d        
+drwx------ 2  36644     950    4096   Apr 20 03:56   83        
+drwx------ 2  36644     950    4096   Apr 20 04:00   c3        
+drwx------ 2  36644     950    4096   Apr 20 04:00   cc        
+drwx------ 2  36644     950    4096   May  2 06:36   b3        
+drwx------ 2  36644     950    4096   May  1 23:04   e9        
+drwx------ 2  36644     950    4096   Apr 20 04:04   d5        
+drwx------ 2  36644     950    4096   Apr 20 04:05   59        
+drwx------ 2  36644     950    4096   Apr 20 04:05   63        
+drwx------ 2  36644     950    4096   Apr 20 04:05   97        
+drwx------ 2  36644     950    4096   May  2 00:25   26        
+drwx------ 2  36644     950    4096   Apr 20 04:08   3f        
+drwx------ 2  36644     950    4096   Apr 20 04:10   e8        
+drwx------ 2  36644     950    4096   Apr 20 04:10   9e        
+drwx------ 2  36644     950    4096   Apr 20 04:12   15        
+drwx------ 2  36644     950    4096   Apr 20 04:12   45        
+drwx------ 2  36644     950    4096   Apr 20 06:41   d8        
+drwx------ 2  36644     950    4096   Apr 20 06:41   74        
+drwx------ 2  36644     950    4096   Apr 20 06:41   17        
+drwx------ 2  36644     950    4096   Apr 20 06:54   e5        
+drwx------ 2  36644     950    4096   Apr 20 06:55   b1        
+drwx------ 2  36644     950    4096   Apr 27 23:41   25        
+drwx------ 2  36644     950    4096   Apr 27 23:41   81        
+drwx------ 2  36644     950    4096   Apr 27 23:41   79        
+drwx------ 2  36644     950    4096   Apr 27 23:41   a1        
+drwx------ 2  36644     950    4096   Apr 27 23:41   1d        
+drwx------ 2  36644     950    4096   Apr 29 06:43   0b        
+drwx------ 2  36644     950    4096   Apr 29 06:43   89        
+drwx------ 2  36644     950    4096   Apr 29 06:44   e0        
+drwx------ 2  36644     950    4096   Apr 29 06:44   f5        
+drwx------ 2  36644     950    4096   Apr 29 06:46   e6        
+drwx------ 2  36644     950    4096   May  2 06:35   53        
+drwx------ 2  36644     950    4096   May  2 06:35   4e        
+drwx------ 2  36644     950    4096   May  1 03:30   30        
+drwx------ 2  36644     950    4096   May  1 03:30   68        
+drwx------ 2  36644     950    4096   May  1 05:29   11        
+drwx------ 2  36644     950    4096   May  1 05:29   04        
+drwx------ 2  36644     950    4096   May  1 05:29   ba        
+drwx------ 2  36644     950    4096   May  1 23:05   d0        
+drwx------ 2  36644     950    4096   May  1 23:05   52        
+drwx------ 2  36644     950    4096   May  2 00:25   a8        
+drwx------ 2  36644     950    4096   May  2 00:25   9a        
+drwx------ 2  36644     950    4096   May  2 00:36   e7        
+drwx------ 2  36644     950    4096   May  2 06:33   2b        
+drwx------ 2  36644     950    4096   May  2 06:33   23        
+drwx------ 2  36644     950    4096   May  2 06:33   d9        
+drwx------ 2  36644     950    4096   May  2 06:33   8f        
+drwx------ 2  36644     950    4096   May  2 06:33   06        
+drwx------ 2  36644     950    4096   May  2 06:36   f7        
+drwx------ 2  36644     950    4096   May  2 06:36   72        
+drwx------ 2  36644     950    4096   May  2 06:36   a9        
+
+total = 380
+
+./.git/objects/04:
+drwx------ 2  36644     950    4096   May  1 05:29   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  1 05:29   3fe6d5232845a4acda1ebc65f85d0bd943ab54
+
+total = 12
+
+./.git/objects/05:
+drwx------ 2  36644     950    4096   Apr 19 06:58   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    180    Apr 19 06:58   d00ec17aadf64ce546ad1070e3d5d6d4a1d084
+
+total = 12
+
+./.git/objects/06:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    170    May  2 06:33   03779bfa7461b2baa687ba614e2101e17b5793
+
+total = 12
+
+./.git/objects/0b:
+drwx------ 2  36644     950    4096   Apr 29 06:43   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    559    Apr 29 06:43   2e036c4c4ff4f8587a71f8420bbbf57cd4865e
+
+total = 12
+
+./.git/objects/0e:
+drwx------ 2  36644     950    4096   Apr 20 03:55   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1116   Apr 20 03:55   4893a20505d5446b36e46d18048d430dc28e4d
+
+total = 12
+
+./.git/objects/10:
+drwx------ 2  36644     950    4096   Apr 16 20:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 16 20:05   1a0c18fb2720b3097d18a2602c55b3668e2ef0
+
+total = 12
+
+./.git/objects/11:
+drwx------ 2  36644     950    4096   May  1 05:29   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1018   May  1 05:29   13099b070f61044af438fa4d1e61f30a059f12
+-r-------- 1  36644     950    201    May  1 05:29   81b896600b03bf011404176b4e6190fac2ac0a
+
+total = 16
+
+./.git/objects/12:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 16 20:05   7faf2a58a44def594c51c24427e4861e9725dc
+-r-------- 1  36644     950    757    Apr 27 23:41   cb35cf114df0ed12208cadf5c4f8798412a892
+
+total = 12
+
+./.git/objects/13:
+drwx------ 2  36644     950    4096   Apr 20 02:34   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    192    Apr 20 02:34   7f022689a975c941571b6b704cc9cfd82b86ca
+
+total = 12
+
+./.git/objects/15:
+drwx------ 2  36644     950    4096   Apr 20 04:12   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:12   9a2157afb7379efc91c81548c6cd71df391f06
+
+total = 12
+
+./.git/objects/17:
+drwx------ 2  36644     950    4096   Apr 20 06:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    183    Apr 20 06:41   a7b577202e8e61ef0473f98e30835f134204f1
+
+total = 12
+
+./.git/objects/18:
+drwx------ 2  36644     950    4096   Apr 20 03:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    179    Apr 20 03:05   cf3d64bac58e5ab668f7a3d1edb0f593c571e0
+
+total = 12
+
+./.git/objects/19:
+drwx------ 2  36644     950    4096   Apr 20 04:04   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 19 02:15   c94df17c9b466763af6314a317074d0b8a5214
+-r-------- 1  36644     950    172    Apr 20 04:04   37cf6b0ba221fb4c600f22e4db972bd4f0403e
+
+total = 16
+
+./.git/objects/1d:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    873    Apr 27 23:41   30b69dee6c58ccc6b0170020879cfda84789f5
+
+total = 12
+
+./.git/objects/23:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    2264   May  2 06:33   8a8c78ba7fd049e6f4ff0b3322145e1e30bbbf
+
+total = 12
+
+./.git/objects/25:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    249    Apr 27 23:41   4bedfefb66b43381270722c6e88bef7ae7db0e
+
+total = 12
+
+./.git/objects/26:
+drwx------ 2  36644     950    4096   May  2 00:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1134   Apr 20 04:08   7e30fc5a9658293a5ee86e00551c09645b7a99
+-r-------- 1  36644     950    202    May  2 00:25   4a49c342cb7c661409b9baa3a89981ef7fb9bd
+
+total = 16
+
+./.git/objects/2b:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    166    May  2 06:33   07822ed2174a19936484d9a1c4e9ee0a5ec4de
+
+total = 12
+
+./.git/objects/30:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  1 03:30   584957b85fbf257884fa8b5a562a567d4ccb21
+
+total = 12
+
+./.git/objects/31:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    208    Apr 20 01:25   e690e739328351d72940ba03615754f2f419cf
+
+total = 12
+
+./.git/objects/3f:
+drwx------ 2  36644     950    4096   Apr 20 04:08   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    166    Apr 20 04:08   3e0e50633ad719437d36b6a9e833ded6780052
+
+total = 12
+
+./.git/objects/45:
+drwx------ 2  36644     950    4096   Apr 20 04:12   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    169    Apr 20 04:12   f53899952266bf4bd772e516ae21d12098d538
+
+total = 12
+
+./.git/objects/4a:
+drwx------ 2  36644     950    4096   Apr 18 03:18   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    188    Apr 18 03:18   5580b3531844dbaa6ea8693833e33ed08e89a8
+
+total = 12
+
+./.git/objects/4e:
+drwx------ 2  36644     950    4096   May  2 06:35   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    167    Apr 29 06:46   d479b2170a8f320e7c26f106bdfef214e5cdef
+-r-------- 1  36644     950    202    May  2 00:36   51be0bcda524afd94e79e12c9002b5111056f9
+-r-------- 1  36644     950    211    May  2 06:35   80b7cf1f0c6cc62c2d849755cb939f6b44aa04
+
+total = 20
+
+./.git/objects/4f:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    124    Apr 20 02:33   fa9e8a172cb7d681086a8bbcdcd3196b9d0272
+-r-------- 1  36644     950    202    May  1 03:30   d4ec575ac6e36dceb969ed2e7b9039821e705b
+
+total = 16
+
+./.git/objects/50:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    807    Apr 16 19:57   f7e02d1e7329ddd4da5203e896d915b0d2c51e
+
+total = 12
+
+./.git/objects/52:
+drwx------ 2  36644     950    4096   May  1 23:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    194    May  1 23:05   bba21ec67231240400809866187a134a0bd443
+
+total = 12
+
+./.git/objects/53:
+drwx------ 2  36644     950    4096   May  2 06:35   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    174    Apr 29 06:46   0dcd851bf5f8c86e04d6e2c0c0f58e04fd42d6
+-r-------- 1  36644     950    234    May  2 06:35   ad19b3080b82be674bfd05e6b0670adbb1a458
+
+total = 16
+
+./.git/objects/54:
+drwx------ 2  36644     950    4096   Apr 20 04:12   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    82     Apr 19 21:06   668ad302003f4389ca2d5f1741c936eca000ab
+-r-------- 1  36644     950    1137   Apr 20 04:12   ad99bcdc798eb0d590a24ff327b21cd0183d96
+
+total = 16
+
+./.git/objects/55:
+drwx------ 2  36644     950    4096   Apr 19 00:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    189    Apr 19 00:36   c31ba922b2541e0626d80cdf5f897752c4a2b8
+
+total = 12
+
+./.git/objects/59:
+drwx------ 2  36644     950    4096   Apr 20 04:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1121   Apr 20 04:05   9ff0ab84bb51ecb9e1c8afef4bffd5aaacfd08
+
+total = 12
+
+./.git/objects/5a:
+drwx------ 2  36644     950    4096   Apr 17 05:32   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    174    Apr 17 05:32   93a9a3978c15590bf9a7853e322fb85d6ed9fb
+
+total = 12
+
+./.git/objects/61:
+drwx------ 2  36644     950    4096   Apr 19 21:07   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    190    Apr 19 21:07   450c729590aca2e13fd3f87c6e27cab33c049b
+
+total = 12
+
+./.git/objects/63:
+drwx------ 2  36644     950    4096   Apr 20 04:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    183    Apr 20 04:05   7848177497c4a2ce70b664c5562aa6b37457d1
+
+total = 12
+
+./.git/objects/66:
+drwx------ 2  36644     950    4096   Apr 20 02:34   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    149    Apr 20 02:34   50d0982b55d563ef05d984d709bbfedd1b3159
+
+total = 12
+
+./.git/objects/68:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    181    May  1 03:30   700d444a8880708c73c3be27d7b6e77001d46a
+
+total = 12
+
+./.git/objects/6d:
+drwx------ 2  36644     950    4096   Apr 29 06:44   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 03:56   d9dcb5ef3aa3bcc2c448689f7faa95f87d0cb8
+-r-------- 1  36644     950    212    Apr 29 06:44   da2a4a55cb7ec543841f492620f143a5f698bf
+
+total = 16
+
+./.git/objects/72:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  2 06:36   93adbcc9b0f35c6206af0cf5f75dfdd553ab5f
+
+total = 12
+
+./.git/objects/74:
+drwx------ 2  36644     950    4096   Apr 20 06:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    Apr 20 06:41   9553288378d0461a85b85133add2ce45881826
+
+total = 12
+
+./.git/objects/79:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    Apr 27 23:41   e28a31e07f7dda382d28ad5b43b0e832f7d350
+
+total = 12
+
+./.git/objects/7b:
+drwx------ 2  36644     950    4096   Apr 20 03:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    183    Apr 20 03:05   68a4d171ce4f4fabbd3963178770ef3f3cb00f
+
+total = 12
+
+./.git/objects/81:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 27 23:41   ece1c5cc35ece71394203788e77093a27abdd8
+
+total = 12
+
+./.git/objects/83:
+drwx------ 2  36644     950    4096   Apr 20 03:56   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    188    Apr 20 03:56   f5fe5e7105d19eaea0af3b96322ef423916c8d
+
+total = 12
+
+./.git/objects/86:
+drwx------ 2  36644     950    4096   May  2 00:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1994   Apr 20 02:33   7f76fcfcc07473560aa3546ef5e751887a6473
+-r-------- 1  36644     950    180    May  2 00:36   321c841c0b83ace6335876130fb74f3a5303e9
+
+total = 16
+
+./.git/objects/87:
+drwx------ 2  36644     950    4096   May  2 00:24   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    191    Apr 19 02:15   7a986d4b4113fdfdedb6e596a70d70051208cb
+-r-------- 1  36644     950    1514   May  2 00:24   688dac69b6b3cc795370b3f1b8e4fb59c76d5d
+
+total = 16
+
+./.git/objects/88:
+drwx------ 2  36644     950    4096   Apr 29 06:46   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 19 06:58   50ac38f8e6fa356f5a36c84eb1658b708b14a4
+-r-------- 1  36644     950    212    Apr 29 06:46   42f6ef3f88c44ecb5bcb2e31b2ac916d7098a6
+
+total = 12
+
+./.git/objects/89:
+drwx------ 2  36644     950    4096   Apr 29 06:43   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    327    Apr 29 06:43   3f5b80075055f1095f7fd15477b46bc28d4c83
+
+total = 12
+
+./.git/objects/8e:
+drwx------ 2  36644     950    4096   Apr 19 21:06   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1938   Apr 19 21:06   663c7ecf6ae619d77a1fcf4a052a05d2a28307
+
+total = 12
+
+./.git/objects/8f:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  2 06:33   86b21c33cad39d8e2c685a386e001701e686ce
+
+total = 12
+
+./.git/objects/97:
+drwx------ 2  36644     950    4096   Apr 20 04:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    176    Apr 20 04:05   571440bddf7af8d6765eb74ab30470d04d1f1b
+
+total = 12
+
+./.git/objects/98:
+drwx------ 2  36644     950    4096   Apr 17 05:32   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 17 05:32   efd7bddc05d7b78bf0d77a3ea0c656f6e858c2
+
+total = 8
+
+./.git/objects/9a:
+drwx------ 2  36644     950    4096   May  2 00:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    173    May  2 00:25   e5d86246c236473a05c22341729193bc2a3f26
+
+total = 12
+
+./.git/objects/9b:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 18 03:18   f74e77d6c66db602dc22b3db2aa9d37e582b77
+-r-------- 1  36644     950    698    May  1 03:30   df0f9c0ac56ae821e06229586982dc2bf11b9f
+
+total = 12
+
+./.git/objects/9c:
+drwx------ 2  36644     950    4096   Apr 19 06:58   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 19 06:58   5fdd41faa5b599e4fbeff2f257238672ebb94f
+
+total = 12
+
+./.git/objects/9e:
+drwx------ 2  36644     950    4096   Apr 20 04:10   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:10   cf447cd1712cf1f1ff28449f48b3d0c44b6eb4
+
+total = 12
+
+./.git/objects/a1:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    146    Apr 27 23:41   a29165c98bf70114fc41d54c4778beabc7cdb8
+
+total = 12
+
+./.git/objects/a4:
+drwx------ 2  36644     950    4096   Apr 19 06:58   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1838   Apr 19 06:58   6f2b6a08551e75de4897bd47e1b5d1cf0eab8a
+
+total = 12
+
+./.git/objects/a8:
+drwx------ 2  36644     950    4096   May  2 00:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    May  2 00:25   de3754c1844178ed244da0ee1b25aefd25da81
+
+total = 12
+
+./.git/objects/a9:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    164    May  2 06:36   e0446cfb359e2cf66138572c2e49fe129996fe
+
+total = 12
+
+./.git/objects/ad:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    82     Apr 20 01:25   d24d3c5de8f3298d2da20b9cae353cc96e08b6
+
+total = 12
+
+./.git/objects/ae:
+drwx------ 2  36644     950    4096   Apr 19 00:31   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    587    Apr 17 05:31   ffc555a884e3d0ff194bb0eb1790745d5cf73d
+-r-------- 1  36644     950    53     Apr 19 00:31   f54298bfc993960578c00712dd714931391c53
+
+total = 12
+
+./.git/objects/b0:
+drwx------ 2  36644     950    4096   Apr 19 00:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1082   Apr 19 00:30   bc43bec685dca0a239ec45d5215cf1afdf7729
+
+total = 12
+
+./.git/objects/b1:
+drwx------ 2  36644     950    4096   Apr 20 06:55   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    Apr 20 06:55   62200f9e5be81d21ac693b197fab52bc22ad63
+
+total = 12
+
+./.git/objects/b3:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    174    Apr 20 04:00   773e40dc4473861fbb40916ea461c451f7ffa2
+-r-------- 1  36644     950    209    May  2 06:36   207810db48a688722cf5e9faa7387a4df61e3f
+
+total = 16
+
+./.git/objects/b4:
+drwx------ 2  36644     950    4096   Apr 18 03:17   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    784    Apr 18 03:17   9eb7198ac29954b14f5f89bc2f4ac4d506f94c
+
+total = 12
+
+./.git/objects/b8:
+drwx------ 2  36644     950    4096   Apr 19 21:06   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    163    Apr 16 19:57   bd0267bdf1a5e02793430b53cbbebd6c257f6f
+-r-------- 1  36644     950    117    Apr 19 21:06   c336b68739dc6af62223616cbf6d69eaa5ced0
+
+total = 16
+
+./.git/objects/ba:
+drwx------ 2  36644     950    4096   May  1 05:29   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    176    May  1 05:29   300377c1c1785d6ac8365a01248df9b6a73212
+
+total = 12
+
+./.git/objects/bc:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1989   Apr 20 01:25   22d4f6a622682db3fc6eb2a0470a021a719c6d
+
+total = 12
+
+./.git/objects/bf:
+drwx------ 2  36644     950    4096   Apr 20 02:34   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    82     Apr 20 02:34   5abd7d4f06b80d6bb2e40b1de5aa8435d4b85c
+
+total = 12
+
+./.git/objects/c3:
+drwx------ 2  36644     950    4096   Apr 20 04:00   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1126   Apr 20 04:00   66ef8a90179f600dd62e47105b65a1bed3f4ca
+
+total = 12
+
+./.git/objects/c7:
+drwx------ 2  36644     950    4096   Apr 20 06:55   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 19 02:15   4b46f67a73f1adec6d5a050ad04a630432b33e
+-r-------- 1  36644     950    56     Apr 20 06:41   9ef7eb9a34fad63fab02a219d31649582ab63d
+-r-------- 1  36644     950    170    Apr 20 06:55   d964408312d7cf40fe20be44415bee317e3f31
+
+total = 12
+
+./.git/objects/cc:
+drwx------ 2  36644     950    4096   Apr 20 04:00   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:00   eb74b808110bdd215bbbbab1d0e0ee1ba7c65a
+
+total = 12
+
+./.git/objects/d0:
+drwx------ 2  36644     950    4096   May  1 23:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    202    May  1 23:05   78dc271a6a01480e1a510a43f60990013ca183
+
+total = 12
+
+./.git/objects/d1:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    175    Apr 16 20:07   7a233d1554d5bdd0e1e541fac5c728d5fda0a5
+-r-------- 1  36644     950    117    Apr 18 03:18   4d1eeee72df81b22387e63ce91b54c7f0e8b86
+-r-------- 1  36644     950    117    Apr 20 01:25   8166fea233f0fc5bf9a7dc71c5704b6a8cbb79
+
+total = 20
+
+./.git/objects/d2:
+drwx------ 2  36644     950    4096   Apr 19 02:14   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1450   Apr 19 02:14   bbdd2ce4bafb6ccbfb9ff05f14e8867726f045
+
+total = 12
+
+./.git/objects/d5:
+drwx------ 2  36644     950    4096   Apr 20 04:04   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:04   5bc93d8a0dcc8dc7817954501bb6adb9ddf881
+
+total = 12
+
+./.git/objects/d7:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    137    Apr 16 19:57   b16ebf03870eb09c78ef4dfe5aa593c1d3fc0e
+
+total = 12
+
+./.git/objects/d8:
+drwx------ 2  36644     950    4096   Apr 20 06:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    3788   Apr 20 06:41   24a31d4125c7d7d2cae91d6731e88c566a7479
+
+total = 12
+
+./.git/objects/d9:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    202    May  2 06:33   1b275e8ec31f75a395eb798cf7bfb342c38ba0
+
+total = 12
+
+./.git/objects/db:
+drwx------ 2  36644     950    4096   May  1 23:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    118    Apr 17 05:32   5169e81547723cdf084b3c51031c3dea39083f
+-r-------- 1  36644     950    265    Apr 20 03:05   e5faf493a70e60edc3f5226615cc8fda039a97
+-r-------- 1  36644     950    211    May  1 23:05   10514191fa292318c8d9b08bbd353d939bd130
+
+total = 20
+
+./.git/objects/dd:
+drwx------ 2  36644     950    4096   Apr 20 04:08   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 19 00:31   4c4a2e875dabd9b285d3bb974f79440e302dbb
+-r-------- 1  36644     950    181    Apr 20 04:08   1be155c291bd661265ecc158a4586f5e2285ff
+
+total = 16
+
+./.git/objects/e0:
+drwx------ 2  36644     950    4096   Apr 29 06:44   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    201    Apr 29 06:44   950441f8c3b4de07b67b75263553b487dea0ab
+
+total = 12
+
+./.git/objects/e5:
+drwx------ 2  36644     950    4096   Apr 20 06:54   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1202   Apr 20 06:54   46018edbf44cfa4f894152456b67bbe7419869
+
+total = 12
+
+./.git/objects/e6:
+drwx------ 2  36644     950    4096   Apr 29 06:46   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    15     Apr 29 06:46   9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+
+total = 8
+
+./.git/objects/e7:
+drwx------ 2  36644     950    4096   May  2 00:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    May  2 00:36   420ca7ee29ea4d1bc537747f9fc5651847e79e
+
+total = 12
+
+./.git/objects/e8:
+drwx------ 2  36644     950    4096   Apr 20 04:10   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1137   Apr 20 04:10   637cfba20dc328c744a9c01afd4f482ea29e84
+
+total = 12
+
+./.git/objects/e9:
+drwx------ 2  36644     950    4096   May  1 23:04   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1124   Apr 20 04:03   6f6ba6baa43b2f54e37b0dd7bd8b1699cd2a25
+-r-------- 1  36644     950    1611   May  1 23:04   8b0c704ce6f27e6a096f049a7613dabc1f5357
+
+total = 16
+
+./.git/objects/f0:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    429    Apr 16 20:04   d88eb50a2677eb9e778f9953baf8f44c7b95be
+-r-------- 1  36644     950    168    Apr 20 04:10   3bdfbf3730850af69d487a0c82f93e100ee5bf
+-r-------- 1  36644     950    235    May  2 06:36   e3f65a3c9c709f04d5b354b0757d14f2737067
+
+total = 20
+
+./.git/objects/f4:
+drwx------ 2  36644     950    4096   May  2 00:35   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    86     Apr 16 19:57   adffafe233636df6539e60c15169fe0b728a0c
+-r-------- 1  36644     950    141    Apr 27 23:41   b8653b51d974b694f42bfe5ca3a6501cd63954
+-r-------- 1  36644     950    1475   May  2 00:35   e13dede06432571cc180b504467ba58139ffeb
+
+total = 20
+
+./.git/objects/f5:
+drwx------ 2  36644     950    4096   Apr 29 06:44   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    190    Apr 29 06:44   5d7cf85442629de25d1402fe0a68c2ff8a7510
+
+total = 12
+
+./.git/objects/f7:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    398    May  2 06:36   58e66a68a5a327b1afaa855424a5e32f9749b4
+
+total = 12
+
+./.git/objects/info:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+
+total = 8
+
+./.git/objects/pack:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+
+total = 8
+
+./.git/refs:
+drwx------ 5  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+drwx------ 2  36644     950    4096   May  2 06:37   heads     
+drwx------ 2  36644     950    4096   May  2 06:48   tags      
+drwx------ 3  36644     950    4096   Apr 16 19:57   remotes   
+
+total = 20
+
+./.git/refs/heads:
+drwx------ 2  36644     950    4096   May  2 06:37   .         
+drwx------ 5  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    41     May  2 06:37   master    
+-rw------- 1  36644     950    41     Apr 20 06:41   exec      
+-rw------- 1  36644     950    41     May  2 06:36   ls        
+
+total = 8
+
+./.git/refs/remotes:
+drwx------ 3  36644     950    4096   Apr 16 19:57   .         
+drwx------ 5  36644     950    4096   Apr 16 19:57   ..        
+drwx------ 2  36644     950    4096   May  2 06:34   origin    
+
+total = 12
+
+./.git/refs/remotes/origin:
+drwx------ 2  36644     950    4096   May  2 06:34   .         
+drwx------ 3  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    32     Apr 16 19:57   HEAD      
+-rw------- 1  36644     950    41     Apr 20 06:41   exec      
+-rw------- 1  36644     950    41     Apr 29 06:47   master    
+-rw------- 1  36644     950    41     May  2 06:34   ls        
+
+total = 8
+
+./.git/refs/tags:
+drwx------ 2  36644     950    4096   May  2 06:48   .         
+drwx------ 5  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    41     Apr 20 06:42   hw0       
+-rw------- 1  36644     950    41     May  2 06:48   hw1       
+
+total = 8
+
+./bin:
+drwx------ 2  36644     950    4096   May  2 06:49   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rwx------ 1  36644     950    27462  May  2 06:49   rshell    
+-rwx------ 1  36644     950    15997  May  2 06:49   cp        
+-rwx------ 1  36644     950    72292  May  2 06:49   ls        
+
+total = 128
+
+./src:
+drwx------ 4  36644     950    4096   May  2 06:47   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rw------- 1  36644     950    4447   Apr 20 06:41   main.cpp  
+-rw------- 1  36644     950    4790   Apr 20 06:41   test.cpp  
+-rw------- 1  36644     950    2698   Apr 27 23:42   Timer.h   
+-rw------- 1  36644     950    2274   Apr 27 23:42   cp.cpp    
+-rw------- 1  36644     950    991    May  2 06:37   dir_code.cpp
+-rw------- 1  36644     950    7760   May  2 06:47   hw1.cpp   
+-rwx------ 1  36644     950    40145  May  2 03:59   a.out     
+drwx------ 3  36644     950    4096   May  2 03:44   testdir   
+-rw------- 1  36644     950    0      May  1 01:59   .testdot  
+-rw------- 1  36644     950    1307   May  1 03:32   dir_codeold.cpp
+drwx------ 2  36644     950    4096   May  1 23:11   kakoos    
+-rw------- 1  36644     950    0      May  2 06:35   blah.txt  
+
+total = 96
+
+./src/kakoos:
+drwx------ 2  36644     950    4096   May  1 23:11   .         
+drwx------ 4  36644     950    4096   May  2 06:47   ..        
+-rw------- 1  36644     950    11     May  1 23:11   kakoos.cpp
+
+total = 8
+
+./src/testdir:
+drwx------ 3  36644     950    4096   May  2 03:44   .         
+drwx------ 4  36644     950    4096   May  2 06:47   ..        
+-rw------- 1  36644     950    0      May  1 21:41   fileintestdir
+drwx------ 2  36644     950    4096   May  2 03:45   testdir2  
+
+total = 12
+
+./src/testdir/testdir2:
+drwx------ 2  36644     950    4096   May  2 03:45   .         
+drwx------ 3  36644     950    4096   May  2 03:44   ..        
+-rw------- 1  36644     950    0      May  2 03:45   fileintestdir2
+
+total = 8
+
+./tests:
+drwx------ 2  36644     950    4096   May  2 06:48   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rw------- 1  36644     950    14269  Apr 20 06:43   exec.script
+-rw------- 1  36644     950    32768  May  2 06:53   ls.script 
+
+total = 56
+
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin [K/ls -alr[KR
+drwx------ 7  36644     950    4096   May  2 06:52   .         
+drwx------ 7  36644     950    4096   Apr 27 23:44   ..        
+drwx------ 8  36644     950    4096   May  2 06:38   .git      
+-rw------- 1  36644     950    242    Apr 16 19:57   .gitignore
+-rw------- 1  36644     950    1473   Apr 16 19:57   LICENSE   
+-rw------- 1  36644     950    367    May  2 06:37   Makefile  
+-rw------- 1  36644     950    2406   Apr 27 23:41   README.md 
+drwx------ 4  36644     950    4096   May  2 06:47   src       
+drwx------ 2  36644     950    4096   May  2 06:49   bin       
+drwx------ 2  36644     950    4096   May  2 06:48   tests     
+drwx------ 2  36644     950    4096   May  2 06:51   .dotfolder
+-rw------- 1  36644     950    0      May  2 06:52   .dotfile  
+
+total = 44
+
+./.dotfolder:
+drwx------ 2  36644     950    4096   May  2 06:51   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+
+total = 8
+
+./.git:
+drwx------ 8  36644     950    4096   May  2 06:38   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+drwx------ 5  36644     950    4096   Apr 16 19:57   refs      
+drwx------ 2  36644     950    4096   Apr 16 19:57   branches  
+drwx------ 2  36644     950    4096   Apr 16 19:57   info      
+drwx------ 2  36644     950    4096   Apr 16 19:57   hooks     
+-rw------- 1  36644     950    73     Apr 16 19:57   description
+drwx------ 95 36644     950    4096   May  2 06:36   objects   
+-rw------- 1  36644     950    23     May  2 06:37   HEAD      
+-rw------- 1  36644     950    263    Apr 16 19:57   config    
+drwx------ 3  36644     950    4096   Apr 16 19:57   logs      
+-rw------- 1  36644     950    107    Apr 16 19:57   packed-refs
+-rw------- 1  36644     950    7      May  2 06:36   COMMIT_EDITMSG
+-rw------- 1  36644     950    968    May  2 06:38   index     
+-rw------- 1  36644     950    203    Apr 27 23:42   FETCH_HEAD
+-rw------- 1  36644     950    314    Apr 19 21:06   COMMIT_EDITMSG~
+-rw------- 1  36644     950    41     May  2 06:37   ORIG_HEAD 
+-rw------- 1  36644     950    257    May  2 06:35   MERGE_MSG~
+
+total = 60
+
+./.git/branches:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+
+total = 8
+
+./.git/hooks:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+-rwx------ 1  36644     950    1348   Apr 16 19:57   pre-push.sample
+-rwx------ 1  36644     950    4951   Apr 16 19:57   pre-rebase.sample
+-rwx------ 1  36644     950    452    Apr 16 19:57   applypatch-msg.sample
+-rwx------ 1  36644     950    1239   Apr 16 19:57   prepare-commit-msg.sample
+-rwx------ 1  36644     950    3611   Apr 16 19:57   update.sample
+-rwx------ 1  36644     950    896    Apr 16 19:57   commit-msg.sample
+-rwx------ 1  36644     950    398    Apr 16 19:57   pre-applypatch.sample
+-rwx------ 1  36644     950    1635   Apr 16 19:57   pre-commit.sample
+-rwx------ 1  36644     950    189    Apr 16 19:57   post-update.sample
+
+total = 48
+
+./.git/info:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+-rw------- 1  36644     950    240    Apr 16 19:57   exclude   
+
+total = 12
+
+./.git/logs:
+drwx------ 3  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+drwx------ 4  36644     950    4096   Apr 16 19:57   refs      
+-rw------- 1  36644     950    10227  May  2 06:37   HEAD      
+
+total = 24
+
+./.git/logs/refs:
+drwx------ 4  36644     950    4096   Apr 16 19:57   .         
+drwx------ 3  36644     950    4096   Apr 16 19:57   ..        
+drwx------ 3  36644     950    4096   Apr 16 19:57   remotes   
+drwx------ 2  36644     950    4096   Apr 29 05:12   heads     
+
+total = 16
+
+./.git/logs/refs/heads:
+drwx------ 2  36644     950    4096   Apr 29 05:12   .         
+drwx------ 4  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    1014   May  2 06:37   master    
+-rw------- 1  36644     950    3449   Apr 20 06:41   exec      
+-rw------- 1  36644     950    1776   May  2 06:36   ls        
+
+total = 20
+
+./.git/logs/refs/remotes:
+drwx------ 3  36644     950    4096   Apr 16 19:57   .         
+drwx------ 4  36644     950    4096   Apr 16 19:57   ..        
+drwx------ 2  36644     950    4096   Apr 29 06:49   origin    
+
+total = 12
+
+./.git/logs/refs/remotes/origin:
+drwx------ 2  36644     950    4096   Apr 29 06:49   .         
+drwx------ 3  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    192    Apr 16 19:57   HEAD      
+-rw------- 1  36644     950    2652   Apr 20 06:41   exec      
+-rw------- 1  36644     950    628    Apr 29 06:47   master    
+-rw------- 1  36644     950    1092   May  2 06:34   ls        
+
+total = 24
+
+./.git/objects:
+drwx------ 95 36644     950    4096   May  2 06:36   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+drwx------ 2  36644     950    4096   Apr 16 19:57   pack      
+drwx------ 2  36644     950    4096   Apr 16 19:57   info      
+drwx------ 2  36644     950    4096   Apr 16 19:57   d7        
+drwx------ 2  36644     950    4096   May  2 00:35   f4        
+drwx------ 2  36644     950    4096   Apr 19 21:06   b8        
+drwx------ 2  36644     950    4096   Apr 16 19:57   50        
+drwx------ 2  36644     950    4096   May  2 06:36   f0        
+drwx------ 2  36644     950    4096   Apr 27 23:41   12        
+drwx------ 2  36644     950    4096   Apr 16 20:05   10        
+drwx------ 2  36644     950    4096   Apr 20 01:25   d1        
+drwx------ 2  36644     950    4096   Apr 19 00:31   ae        
+drwx------ 2  36644     950    4096   Apr 17 05:32   98        
+drwx------ 2  36644     950    4096   May  1 23:05   db        
+drwx------ 2  36644     950    4096   Apr 17 05:32   5a        
+drwx------ 2  36644     950    4096   Apr 18 03:17   b4        
+drwx------ 2  36644     950    4096   May  1 03:30   9b        
+drwx------ 2  36644     950    4096   Apr 18 03:18   4a        
+drwx------ 2  36644     950    4096   Apr 19 00:30   b0        
+drwx------ 2  36644     950    4096   Apr 20 04:08   dd        
+drwx------ 2  36644     950    4096   Apr 19 00:36   55        
+drwx------ 2  36644     950    4096   Apr 19 02:14   d2        
+drwx------ 2  36644     950    4096   Apr 20 06:55   c7        
+drwx------ 2  36644     950    4096   Apr 20 04:04   19        
+drwx------ 2  36644     950    4096   May  2 00:24   87        
+drwx------ 2  36644     950    4096   Apr 19 06:58   a4        
+drwx------ 2  36644     950    4096   Apr 29 06:46   88        
+drwx------ 2  36644     950    4096   Apr 19 06:58   9c        
+drwx------ 2  36644     950    4096   Apr 19 06:58   05        
+drwx------ 2  36644     950    4096   Apr 19 21:06   8e        
+drwx------ 2  36644     950    4096   Apr 20 04:12   54        
+drwx------ 2  36644     950    4096   Apr 19 21:07   61        
+drwx------ 2  36644     950    4096   Apr 20 01:25   bc        
+drwx------ 2  36644     950    4096   Apr 20 01:25   ad        
+drwx------ 2  36644     950    4096   Apr 20 01:25   31        
+drwx------ 2  36644     950    4096   May  2 00:36   86        
+drwx------ 2  36644     950    4096   May  1 03:30   4f        
+drwx------ 2  36644     950    4096   Apr 20 02:34   bf        
+drwx------ 2  36644     950    4096   Apr 20 02:34   66        
+drwx------ 2  36644     950    4096   Apr 20 02:34   13        
+drwx------ 2  36644     950    4096   Apr 20 03:05   7b        
+drwx------ 2  36644     950    4096   Apr 20 03:05   18        
+drwx------ 2  36644     950    4096   Apr 20 03:55   0e        
+drwx------ 2  36644     950    4096   Apr 29 06:44   6d        
+drwx------ 2  36644     950    4096   Apr 20 03:56   83        
+drwx------ 2  36644     950    4096   Apr 20 04:00   c3        
+drwx------ 2  36644     950    4096   Apr 20 04:00   cc        
+drwx------ 2  36644     950    4096   May  2 06:36   b3        
+drwx------ 2  36644     950    4096   May  1 23:04   e9        
+drwx------ 2  36644     950    4096   Apr 20 04:04   d5        
+drwx------ 2  36644     950    4096   Apr 20 04:05   59        
+drwx------ 2  36644     950    4096   Apr 20 04:05   63        
+drwx------ 2  36644     950    4096   Apr 20 04:05   97        
+drwx------ 2  36644     950    4096   May  2 00:25   26        
+drwx------ 2  36644     950    4096   Apr 20 04:08   3f        
+drwx------ 2  36644     950    4096   Apr 20 04:10   e8        
+drwx------ 2  36644     950    4096   Apr 20 04:10   9e        
+drwx------ 2  36644     950    4096   Apr 20 04:12   15        
+drwx------ 2  36644     950    4096   Apr 20 04:12   45        
+drwx------ 2  36644     950    4096   Apr 20 06:41   d8        
+drwx------ 2  36644     950    4096   Apr 20 06:41   74        
+drwx------ 2  36644     950    4096   Apr 20 06:41   17        
+drwx------ 2  36644     950    4096   Apr 20 06:54   e5        
+drwx------ 2  36644     950    4096   Apr 20 06:55   b1        
+drwx------ 2  36644     950    4096   Apr 27 23:41   25        
+drwx------ 2  36644     950    4096   Apr 27 23:41   81        
+drwx------ 2  36644     950    4096   Apr 27 23:41   79        
+drwx------ 2  36644     950    4096   Apr 27 23:41   a1        
+drwx------ 2  36644     950    4096   Apr 27 23:41   1d        
+drwx------ 2  36644     950    4096   Apr 29 06:43   0b        
+drwx------ 2  36644     950    4096   Apr 29 06:43   89        
+drwx------ 2  36644     950    4096   Apr 29 06:44   e0        
+drwx------ 2  36644     950    4096   Apr 29 06:44   f5        
+drwx------ 2  36644     950    4096   Apr 29 06:46   e6        
+drwx------ 2  36644     950    4096   May  2 06:35   53        
+drwx------ 2  36644     950    4096   May  2 06:35   4e        
+drwx------ 2  36644     950    4096   May  1 03:30   30        
+drwx------ 2  36644     950    4096   May  1 03:30   68        
+drwx------ 2  36644     950    4096   May  1 05:29   11        
+drwx------ 2  36644     950    4096   May  1 05:29   04        
+drwx------ 2  36644     950    4096   May  1 05:29   ba        
+drwx------ 2  36644     950    4096   May  1 23:05   d0        
+drwx------ 2  36644     950    4096   May  1 23:05   52        
+drwx------ 2  36644     950    4096   May  2 00:25   a8        
+drwx------ 2  36644     950    4096   May  2 00:25   9a        
+drwx------ 2  36644     950    4096   May  2 00:36   e7        
+drwx------ 2  36644     950    4096   May  2 06:33   2b        
+drwx------ 2  36644     950    4096   May  2 06:33   23        
+drwx------ 2  36644     950    4096   May  2 06:33   d9        
+drwx------ 2  36644     950    4096   May  2 06:33   8f        
+drwx------ 2  36644     950    4096   May  2 06:33   06        
+drwx------ 2  36644     950    4096   May  2 06:36   f7        
+drwx------ 2  36644     950    4096   May  2 06:36   72        
+drwx------ 2  36644     950    4096   May  2 06:36   a9        
+
+total = 380
+
+./.git/objects/04:
+drwx------ 2  36644     950    4096   May  1 05:29   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  1 05:29   3fe6d5232845a4acda1ebc65f85d0bd943ab54
+
+total = 12
+
+./.git/objects/05:
+drwx------ 2  36644     950    4096   Apr 19 06:58   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    180    Apr 19 06:58   d00ec17aadf64ce546ad1070e3d5d6d4a1d084
+
+total = 12
+
+./.git/objects/06:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    170    May  2 06:33   03779bfa7461b2baa687ba614e2101e17b5793
+
+total = 12
+
+./.git/objects/0b:
+drwx------ 2  36644     950    4096   Apr 29 06:43   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    559    Apr 29 06:43   2e036c4c4ff4f8587a71f8420bbbf57cd4865e
+
+total = 12
+
+./.git/objects/0e:
+drwx------ 2  36644     950    4096   Apr 20 03:55   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1116   Apr 20 03:55   4893a20505d5446b36e46d18048d430dc28e4d
+
+total = 12
+
+./.git/objects/10:
+drwx------ 2  36644     950    4096   Apr 16 20:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 16 20:05   1a0c18fb2720b3097d18a2602c55b3668e2ef0
+
+total = 12
+
+./.git/objects/11:
+drwx------ 2  36644     950    4096   May  1 05:29   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1018   May  1 05:29   13099b070f61044af438fa4d1e61f30a059f12
+-r-------- 1  36644     950    201    May  1 05:29   81b896600b03bf011404176b4e6190fac2ac0a
+
+total = 16
+
+./.git/objects/12:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 16 20:05   7faf2a58a44def594c51c24427e4861e9725dc
+-r-------- 1  36644     950    757    Apr 27 23:41   cb35cf114df0ed12208cadf5c4f8798412a892
+
+total = 12
+
+./.git/objects/13:
+drwx------ 2  36644     950    4096   Apr 20 02:34   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    192    Apr 20 02:34   7f022689a975c941571b6b704cc9cfd82b86ca
+
+total = 12
+
+./.git/objects/15:
+drwx------ 2  36644     950    4096   Apr 20 04:12   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:12   9a2157afb7379efc91c81548c6cd71df391f06
+
+total = 12
+
+./.git/objects/17:
+drwx------ 2  36644     950    4096   Apr 20 06:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    183    Apr 20 06:41   a7b577202e8e61ef0473f98e30835f134204f1
+
+total = 12
+
+./.git/objects/18:
+drwx------ 2  36644     950    4096   Apr 20 03:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    179    Apr 20 03:05   cf3d64bac58e5ab668f7a3d1edb0f593c571e0
+
+total = 12
+
+./.git/objects/19:
+drwx------ 2  36644     950    4096   Apr 20 04:04   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 19 02:15   c94df17c9b466763af6314a317074d0b8a5214
+-r-------- 1  36644     950    172    Apr 20 04:04   37cf6b0ba221fb4c600f22e4db972bd4f0403e
+
+total = 16
+
+./.git/objects/1d:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    873    Apr 27 23:41   30b69dee6c58ccc6b0170020879cfda84789f5
+
+total = 12
+
+./.git/objects/23:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    2264   May  2 06:33   8a8c78ba7fd049e6f4ff0b3322145e1e30bbbf
+
+total = 12
+
+./.git/objects/25:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    249    Apr 27 23:41   4bedfefb66b43381270722c6e88bef7ae7db0e
+
+total = 12
+
+./.git/objects/26:
+drwx------ 2  36644     950    4096   May  2 00:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1134   Apr 20 04:08   7e30fc5a9658293a5ee86e00551c09645b7a99
+-r-------- 1  36644     950    202    May  2 00:25   4a49c342cb7c661409b9baa3a89981ef7fb9bd
+
+total = 16
+
+./.git/objects/2b:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    166    May  2 06:33   07822ed2174a19936484d9a1c4e9ee0a5ec4de
+
+total = 12
+
+./.git/objects/30:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  1 03:30   584957b85fbf257884fa8b5a562a567d4ccb21
+
+total = 12
+
+./.git/objects/31:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    208    Apr 20 01:25   e690e739328351d72940ba03615754f2f419cf
+
+total = 12
+
+./.git/objects/3f:
+drwx------ 2  36644     950    4096   Apr 20 04:08   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    166    Apr 20 04:08   3e0e50633ad719437d36b6a9e833ded6780052
+
+total = 12
+
+./.git/objects/45:
+drwx------ 2  36644     950    4096   Apr 20 04:12   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    169    Apr 20 04:12   f53899952266bf4bd772e516ae21d12098d538
+
+total = 12
+
+./.git/objects/4a:
+drwx------ 2  36644     950    4096   Apr 18 03:18   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    188    Apr 18 03:18   5580b3531844dbaa6ea8693833e33ed08e89a8
+
+total = 12
+
+./.git/objects/4e:
+drwx------ 2  36644     950    4096   May  2 06:35   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    167    Apr 29 06:46   d479b2170a8f320e7c26f106bdfef214e5cdef
+-r-------- 1  36644     950    202    May  2 00:36   51be0bcda524afd94e79e12c9002b5111056f9
+-r-------- 1  36644     950    211    May  2 06:35   80b7cf1f0c6cc62c2d849755cb939f6b44aa04
+
+total = 20
+
+./.git/objects/4f:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    124    Apr 20 02:33   fa9e8a172cb7d681086a8bbcdcd3196b9d0272
+-r-------- 1  36644     950    202    May  1 03:30   d4ec575ac6e36dceb969ed2e7b9039821e705b
+
+total = 16
+
+./.git/objects/50:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    807    Apr 16 19:57   f7e02d1e7329ddd4da5203e896d915b0d2c51e
+
+total = 12
+
+./.git/objects/52:
+drwx------ 2  36644     950    4096   May  1 23:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    194    May  1 23:05   bba21ec67231240400809866187a134a0bd443
+
+total = 12
+
+./.git/objects/53:
+drwx------ 2  36644     950    4096   May  2 06:35   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    174    Apr 29 06:46   0dcd851bf5f8c86e04d6e2c0c0f58e04fd42d6
+-r-------- 1  36644     950    234    May  2 06:35   ad19b3080b82be674bfd05e6b0670adbb1a458
+
+total = 16
+
+./.git/objects/54:
+drwx------ 2  36644     950    4096   Apr 20 04:12   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    82     Apr 19 21:06   668ad302003f4389ca2d5f1741c936eca000ab
+-r-------- 1  36644     950    1137   Apr 20 04:12   ad99bcdc798eb0d590a24ff327b21cd0183d96
+
+total = 16
+
+./.git/objects/55:
+drwx------ 2  36644     950    4096   Apr 19 00:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    189    Apr 19 00:36   c31ba922b2541e0626d80cdf5f897752c4a2b8
+
+total = 12
+
+./.git/objects/59:
+drwx------ 2  36644     950    4096   Apr 20 04:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1121   Apr 20 04:05   9ff0ab84bb51ecb9e1c8afef4bffd5aaacfd08
+
+total = 12
+
+./.git/objects/5a:
+drwx------ 2  36644     950    4096   Apr 17 05:32   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    174    Apr 17 05:32   93a9a3978c15590bf9a7853e322fb85d6ed9fb
+
+total = 12
+
+./.git/objects/61:
+drwx------ 2  36644     950    4096   Apr 19 21:07   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    190    Apr 19 21:07   450c729590aca2e13fd3f87c6e27cab33c049b
+
+total = 12
+
+./.git/objects/63:
+drwx------ 2  36644     950    4096   Apr 20 04:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    183    Apr 20 04:05   7848177497c4a2ce70b664c5562aa6b37457d1
+
+total = 12
+
+./.git/objects/66:
+drwx------ 2  36644     950    4096   Apr 20 02:34   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    149    Apr 20 02:34   50d0982b55d563ef05d984d709bbfedd1b3159
+
+total = 12
+
+./.git/objects/68:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    181    May  1 03:30   700d444a8880708c73c3be27d7b6e77001d46a
+
+total = 12
+
+./.git/objects/6d:
+drwx------ 2  36644     950    4096   Apr 29 06:44   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 03:56   d9dcb5ef3aa3bcc2c448689f7faa95f87d0cb8
+-r-------- 1  36644     950    212    Apr 29 06:44   da2a4a55cb7ec543841f492620f143a5f698bf
+
+total = 16
+
+./.git/objects/72:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  2 06:36   93adbcc9b0f35c6206af0cf5f75dfdd553ab5f
+
+total = 12
+
+./.git/objects/74:
+drwx------ 2  36644     950    4096   Apr 20 06:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    Apr 20 06:41   9553288378d0461a85b85133add2ce45881826
+
+total = 12
+
+./.git/objects/79:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    Apr 27 23:41   e28a31e07f7dda382d28ad5b43b0e832f7d350
+
+total = 12
+
+./.git/objects/7b:
+drwx------ 2  36644     950    4096   Apr 20 03:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    183    Apr 20 03:05   68a4d171ce4f4fabbd3963178770ef3f3cb00f
+
+total = 12
+
+./.git/objects/81:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 27 23:41   ece1c5cc35ece71394203788e77093a27abdd8
+
+total = 12
+
+./.git/objects/83:
+drwx------ 2  36644     950    4096   Apr 20 03:56   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    188    Apr 20 03:56   f5fe5e7105d19eaea0af3b96322ef423916c8d
+
+total = 12
+
+./.git/objects/86:
+drwx------ 2  36644     950    4096   May  2 00:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1994   Apr 20 02:33   7f76fcfcc07473560aa3546ef5e751887a6473
+-r-------- 1  36644     950    180    May  2 00:36   321c841c0b83ace6335876130fb74f3a5303e9
+
+total = 16
+
+./.git/objects/87:
+drwx------ 2  36644     950    4096   May  2 00:24   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    191    Apr 19 02:15   7a986d4b4113fdfdedb6e596a70d70051208cb
+-r-------- 1  36644     950    1514   May  2 00:24   688dac69b6b3cc795370b3f1b8e4fb59c76d5d
+
+total = 16
+
+./.git/objects/88:
+drwx------ 2  36644     950    4096   Apr 29 06:46   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 19 06:58   50ac38f8e6fa356f5a36c84eb1658b708b14a4
+-r-------- 1  36644     950    212    Apr 29 06:46   42f6ef3f88c44ecb5bcb2e31b2ac916d7098a6
+
+total = 12
+
+./.git/objects/89:
+drwx------ 2  36644     950    4096   Apr 29 06:43   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    327    Apr 29 06:43   3f5b80075055f1095f7fd15477b46bc28d4c83
+
+total = 12
+
+./.git/objects/8e:
+drwx------ 2  36644     950    4096   Apr 19 21:06   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1938   Apr 19 21:06   663c7ecf6ae619d77a1fcf4a052a05d2a28307
+
+total = 12
+
+./.git/objects/8f:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    May  2 06:33   86b21c33cad39d8e2c685a386e001701e686ce
+
+total = 12
+
+./.git/objects/97:
+drwx------ 2  36644     950    4096   Apr 20 04:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    176    Apr 20 04:05   571440bddf7af8d6765eb74ab30470d04d1f1b
+
+total = 12
+
+./.git/objects/98:
+drwx------ 2  36644     950    4096   Apr 17 05:32   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 17 05:32   efd7bddc05d7b78bf0d77a3ea0c656f6e858c2
+
+total = 8
+
+./.git/objects/9a:
+drwx------ 2  36644     950    4096   May  2 00:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    173    May  2 00:25   e5d86246c236473a05c22341729193bc2a3f26
+
+total = 12
+
+./.git/objects/9b:
+drwx------ 2  36644     950    4096   May  1 03:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 18 03:18   f74e77d6c66db602dc22b3db2aa9d37e582b77
+-r-------- 1  36644     950    698    May  1 03:30   df0f9c0ac56ae821e06229586982dc2bf11b9f
+
+total = 12
+
+./.git/objects/9c:
+drwx------ 2  36644     950    4096   Apr 19 06:58   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 19 06:58   5fdd41faa5b599e4fbeff2f257238672ebb94f
+
+total = 12
+
+./.git/objects/9e:
+drwx------ 2  36644     950    4096   Apr 20 04:10   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:10   cf447cd1712cf1f1ff28449f48b3d0c44b6eb4
+
+total = 12
+
+./.git/objects/a1:
+drwx------ 2  36644     950    4096   Apr 27 23:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    146    Apr 27 23:41   a29165c98bf70114fc41d54c4778beabc7cdb8
+
+total = 12
+
+./.git/objects/a4:
+drwx------ 2  36644     950    4096   Apr 19 06:58   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1838   Apr 19 06:58   6f2b6a08551e75de4897bd47e1b5d1cf0eab8a
+
+total = 12
+
+./.git/objects/a8:
+drwx------ 2  36644     950    4096   May  2 00:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    May  2 00:25   de3754c1844178ed244da0ee1b25aefd25da81
+
+total = 12
+
+./.git/objects/a9:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    164    May  2 06:36   e0446cfb359e2cf66138572c2e49fe129996fe
+
+total = 12
+
+./.git/objects/ad:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    82     Apr 20 01:25   d24d3c5de8f3298d2da20b9cae353cc96e08b6
+
+total = 12
+
+./.git/objects/ae:
+drwx------ 2  36644     950    4096   Apr 19 00:31   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    587    Apr 17 05:31   ffc555a884e3d0ff194bb0eb1790745d5cf73d
+-r-------- 1  36644     950    53     Apr 19 00:31   f54298bfc993960578c00712dd714931391c53
+
+total = 12
+
+./.git/objects/b0:
+drwx------ 2  36644     950    4096   Apr 19 00:30   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1082   Apr 19 00:30   bc43bec685dca0a239ec45d5215cf1afdf7729
+
+total = 12
+
+./.git/objects/b1:
+drwx------ 2  36644     950    4096   Apr 20 06:55   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    211    Apr 20 06:55   62200f9e5be81d21ac693b197fab52bc22ad63
+
+total = 12
+
+./.git/objects/b3:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    174    Apr 20 04:00   773e40dc4473861fbb40916ea461c451f7ffa2
+-r-------- 1  36644     950    209    May  2 06:36   207810db48a688722cf5e9faa7387a4df61e3f
+
+total = 16
+
+./.git/objects/b4:
+drwx------ 2  36644     950    4096   Apr 18 03:17   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    784    Apr 18 03:17   9eb7198ac29954b14f5f89bc2f4ac4d506f94c
+
+total = 12
+
+./.git/objects/b8:
+drwx------ 2  36644     950    4096   Apr 19 21:06   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    163    Apr 16 19:57   bd0267bdf1a5e02793430b53cbbebd6c257f6f
+-r-------- 1  36644     950    117    Apr 19 21:06   c336b68739dc6af62223616cbf6d69eaa5ced0
+
+total = 16
+
+./.git/objects/ba:
+drwx------ 2  36644     950    4096   May  1 05:29   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    176    May  1 05:29   300377c1c1785d6ac8365a01248df9b6a73212
+
+total = 12
+
+./.git/objects/bc:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1989   Apr 20 01:25   22d4f6a622682db3fc6eb2a0470a021a719c6d
+
+total = 12
+
+./.git/objects/bf:
+drwx------ 2  36644     950    4096   Apr 20 02:34   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    82     Apr 20 02:34   5abd7d4f06b80d6bb2e40b1de5aa8435d4b85c
+
+total = 12
+
+./.git/objects/c3:
+drwx------ 2  36644     950    4096   Apr 20 04:00   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1126   Apr 20 04:00   66ef8a90179f600dd62e47105b65a1bed3f4ca
+
+total = 12
+
+./.git/objects/c7:
+drwx------ 2  36644     950    4096   Apr 20 06:55   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    53     Apr 19 02:15   4b46f67a73f1adec6d5a050ad04a630432b33e
+-r-------- 1  36644     950    56     Apr 20 06:41   9ef7eb9a34fad63fab02a219d31649582ab63d
+-r-------- 1  36644     950    170    Apr 20 06:55   d964408312d7cf40fe20be44415bee317e3f31
+
+total = 12
+
+./.git/objects/cc:
+drwx------ 2  36644     950    4096   Apr 20 04:00   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:00   eb74b808110bdd215bbbbab1d0e0ee1ba7c65a
+
+total = 12
+
+./.git/objects/d0:
+drwx------ 2  36644     950    4096   May  1 23:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    202    May  1 23:05   78dc271a6a01480e1a510a43f60990013ca183
+
+total = 12
+
+./.git/objects/d1:
+drwx------ 2  36644     950    4096   Apr 20 01:25   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    175    Apr 16 20:07   7a233d1554d5bdd0e1e541fac5c728d5fda0a5
+-r-------- 1  36644     950    117    Apr 18 03:18   4d1eeee72df81b22387e63ce91b54c7f0e8b86
+-r-------- 1  36644     950    117    Apr 20 01:25   8166fea233f0fc5bf9a7dc71c5704b6a8cbb79
+
+total = 20
+
+./.git/objects/d2:
+drwx------ 2  36644     950    4096   Apr 19 02:14   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1450   Apr 19 02:14   bbdd2ce4bafb6ccbfb9ff05f14e8867726f045
+
+total = 12
+
+./.git/objects/d5:
+drwx------ 2  36644     950    4096   Apr 20 04:04   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    182    Apr 20 04:04   5bc93d8a0dcc8dc7817954501bb6adb9ddf881
+
+total = 12
+
+./.git/objects/d7:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    137    Apr 16 19:57   b16ebf03870eb09c78ef4dfe5aa593c1d3fc0e
+
+total = 12
+
+./.git/objects/d8:
+drwx------ 2  36644     950    4096   Apr 20 06:41   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    3788   Apr 20 06:41   24a31d4125c7d7d2cae91d6731e88c566a7479
+
+total = 12
+
+./.git/objects/d9:
+drwx------ 2  36644     950    4096   May  2 06:33   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    202    May  2 06:33   1b275e8ec31f75a395eb798cf7bfb342c38ba0
+
+total = 12
+
+./.git/objects/db:
+drwx------ 2  36644     950    4096   May  1 23:05   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    118    Apr 17 05:32   5169e81547723cdf084b3c51031c3dea39083f
+-r-------- 1  36644     950    265    Apr 20 03:05   e5faf493a70e60edc3f5226615cc8fda039a97
+-r-------- 1  36644     950    211    May  1 23:05   10514191fa292318c8d9b08bbd353d939bd130
+
+total = 20
+
+./.git/objects/dd:
+drwx------ 2  36644     950    4096   Apr 20 04:08   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    117    Apr 19 00:31   4c4a2e875dabd9b285d3bb974f79440e302dbb
+-r-------- 1  36644     950    181    Apr 20 04:08   1be155c291bd661265ecc158a4586f5e2285ff
+
+total = 16
+
+./.git/objects/e0:
+drwx------ 2  36644     950    4096   Apr 29 06:44   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    201    Apr 29 06:44   950441f8c3b4de07b67b75263553b487dea0ab
+
+total = 12
+
+./.git/objects/e5:
+drwx------ 2  36644     950    4096   Apr 20 06:54   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1202   Apr 20 06:54   46018edbf44cfa4f894152456b67bbe7419869
+
+total = 12
+
+./.git/objects/e6:
+drwx------ 2  36644     950    4096   Apr 29 06:46   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    15     Apr 29 06:46   9de29bb2d1d6434b8b29ae775ad8c2e48c5391
+
+total = 8
+
+./.git/objects/e7:
+drwx------ 2  36644     950    4096   May  2 00:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    212    May  2 00:36   420ca7ee29ea4d1bc537747f9fc5651847e79e
+
+total = 12
+
+./.git/objects/e8:
+drwx------ 2  36644     950    4096   Apr 20 04:10   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1137   Apr 20 04:10   637cfba20dc328c744a9c01afd4f482ea29e84
+
+total = 12
+
+./.git/objects/e9:
+drwx------ 2  36644     950    4096   May  1 23:04   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    1124   Apr 20 04:03   6f6ba6baa43b2f54e37b0dd7bd8b1699cd2a25
+-r-------- 1  36644     950    1611   May  1 23:04   8b0c704ce6f27e6a096f049a7613dabc1f5357
+
+total = 16
+
+./.git/objects/f0:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    429    Apr 16 20:04   d88eb50a2677eb9e778f9953baf8f44c7b95be
+-r-------- 1  36644     950    168    Apr 20 04:10   3bdfbf3730850af69d487a0c82f93e100ee5bf
+-r-------- 1  36644     950    235    May  2 06:36   e3f65a3c9c709f04d5b354b0757d14f2737067
+
+total = 20
+
+./.git/objects/f4:
+drwx------ 2  36644     950    4096   May  2 00:35   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    86     Apr 16 19:57   adffafe233636df6539e60c15169fe0b728a0c
+-r-------- 1  36644     950    141    Apr 27 23:41   b8653b51d974b694f42bfe5ca3a6501cd63954
+-r-------- 1  36644     950    1475   May  2 00:35   e13dede06432571cc180b504467ba58139ffeb
+
+total = 20
+
+./.git/objects/f5:
+drwx------ 2  36644     950    4096   Apr 29 06:44   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    190    Apr 29 06:44   5d7cf85442629de25d1402fe0a68c2ff8a7510
+
+total = 12
+
+./.git/objects/f7:
+drwx------ 2  36644     950    4096   May  2 06:36   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+-r-------- 1  36644     950    398    May  2 06:36   58e66a68a5a327b1afaa855424a5e32f9749b4
+
+total = 12
+
+./.git/objects/info:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+
+total = 8
+
+./.git/objects/pack:
+drwx------ 2  36644     950    4096   Apr 16 19:57   .         
+drwx------ 95 36644     950    4096   May  2 06:36   ..        
+
+total = 8
+
+./.git/refs:
+drwx------ 5  36644     950    4096   Apr 16 19:57   .         
+drwx------ 8  36644     950    4096   May  2 06:38   ..        
+drwx------ 2  36644     950    4096   May  2 06:37   heads     
+drwx------ 2  36644     950    4096   May  2 06:48   tags      
+drwx------ 3  36644     950    4096   Apr 16 19:57   remotes   
+
+total = 20
+
+./.git/refs/heads:
+drwx------ 2  36644     950    4096   May  2 06:37   .         
+drwx------ 5  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    41     May  2 06:37   master    
+-rw------- 1  36644     950    41     Apr 20 06:41   exec      
+-rw------- 1  36644     950    41     May  2 06:36   ls        
+
+total = 8
+
+./.git/refs/remotes:
+drwx------ 3  36644     950    4096   Apr 16 19:57   .         
+drwx------ 5  36644     950    4096   Apr 16 19:57   ..        
+drwx------ 2  36644     950    4096   May  2 06:34   origin    
+
+total = 12
+
+./.git/refs/remotes/origin:
+drwx------ 2  36644     950    4096   May  2 06:34   .         
+drwx------ 3  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    32     Apr 16 19:57   HEAD      
+-rw------- 1  36644     950    41     Apr 20 06:41   exec      
+-rw------- 1  36644     950    41     Apr 29 06:47   master    
+-rw------- 1  36644     950    41     May  2 06:34   ls        
+
+total = 8
+
+./.git/refs/tags:
+drwx------ 2  36644     950    4096   May  2 06:48   .         
+drwx------ 5  36644     950    4096   Apr 16 19:57   ..        
+-rw------- 1  36644     950    41     Apr 20 06:42   hw0       
+-rw------- 1  36644     950    41     May  2 06:48   hw1       
+
+total = 8
+
+./bin:
+drwx------ 2  36644     950    4096   May  2 06:49   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rwx------ 1  36644     950    27462  May  2 06:49   rshell    
+-rwx------ 1  36644     950    15997  May  2 06:49   cp        
+-rwx------ 1  36644     950    72292  May  2 06:49   ls        
+
+total = 128
+
+./src:
+drwx------ 4  36644     950    4096   May  2 06:47   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rw------- 1  36644     950    4447   Apr 20 06:41   main.cpp  
+-rw------- 1  36644     950    4790   Apr 20 06:41   test.cpp  
+-rw------- 1  36644     950    2698   Apr 27 23:42   Timer.h   
+-rw------- 1  36644     950    2274   Apr 27 23:42   cp.cpp    
+-rw------- 1  36644     950    991    May  2 06:37   dir_code.cpp
+-rw------- 1  36644     950    7760   May  2 06:47   hw1.cpp   
+-rwx------ 1  36644     950    40145  May  2 03:59   a.out     
+drwx------ 3  36644     950    4096   May  2 03:44   testdir   
+-rw------- 1  36644     950    0      May  1 01:59   .testdot  
+-rw------- 1  36644     950    1307   May  1 03:32   dir_codeold.cpp
+drwx------ 2  36644     950    4096   May  1 23:11   kakoos    
+-rw------- 1  36644     950    0      May  2 06:35   blah.txt  
+
+total = 96
+
+./src/kakoos:
+drwx------ 2  36644     950    4096   May  1 23:11   .         
+drwx------ 4  36644     950    4096   May  2 06:47   ..        
+-rw------- 1  36644     950    11     May  1 23:11   kakoos.cpp
+
+total = 8
+
+./src/testdir:
+drwx------ 3  36644     950    4096   May  2 03:44   .         
+drwx------ 4  36644     950    4096   May  2 06:47   ..        
+-rw------- 1  36644     950    0      May  1 21:41   fileintestdir
+drwx------ 2  36644     950    4096   May  2 03:45   testdir2  
+
+total = 12
+
+./src/testdir/testdir2:
+drwx------ 2  36644     950    4096   May  2 03:45   .         
+drwx------ 3  36644     950    4096   May  2 03:44   ..        
+-rw------- 1  36644     950    0      May  2 03:45   fileintestdir2
+
+total = 8
+
+./tests:
+drwx------ 2  36644     950    4096   May  2 06:48   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rw------- 1  36644     950    14269  Apr 20 06:43   exec.script
+-rw------- 1  36644     950    98304  May  2 06:53   ls.script 
+
+total = 124
+
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m ls[K[Kbin/ls -a src -l
+drwx------ 4  36644     950    4096   May  2 06:47   .         
+drwx------ 7  36644     950    4096   May  2 06:52   ..        
+-rw------- 1  36644     950    4447   Apr 20 06:41   main.cpp  
+-rw------- 1  36644     950    4790   Apr 20 06:41   test.cpp  
+-rw------- 1  36644     950    2698   Apr 27 23:42   Timer.h   
+-rw------- 1  36644     950    2274   Apr 27 23:42   cp.cpp    
+-rw------- 1  36644     950    991    May  2 06:37   dir_code.cpp
+-rw------- 1  36644     950    7760   May  2 06:47   hw1.cpp   
+-rwx------ 1  36644     950    40145  May  2 03:59   a.out     
+drwx------ 3  36644     950    4096   May  2 03:44   testdir   
+-rw------- 1  36644     950    0      May  1 01:59   .testdot  
+-rw------- 1  36644     950    1307   May  1 03:32   dir_codeold.cpp
+drwx------ 2  36644     950    4096   May  1 23:11   kakoos    
+-rw------- 1  36644     950    0      May  2 06:35   blah.txt  
+
+total = 96
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m bin/ls -
+LICENSE Makefile README.md src bin tests 
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (master) [0;36m$[0m exit
+exit
+~
+cdixi001@hammer $ exit
+exit
+
+Script done on Sat 02 May 2015 12:00:19 AM PDT
