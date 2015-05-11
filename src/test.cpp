@@ -26,6 +26,22 @@ void addSpaces(string &text, const string &op) {
 }
 
 
+//adds space before and after all instances of op in text to text
+void addNumbers(string &text, const string &op) {
+	size_t length = op.length();
+	size_t pos;
+	pos = text.find(op, 0);	//some inspiration from stackoverflow.com/questions/4034750
+
+
+	while(pos != string::npos) {
+		//pos+1 to go to thing pos was pointing at, but want to move AFTER that
+		text.insert(pos, " ");	//one space before
+		text.insert(pos+1+length, " "); //and one space after
+		pos = text.find(op, pos+1+length);
+	}
+}
+
+
 /*
 //takes in string and deliminator and tokenizes that string into vector<char*>
 vector<char*> parser(string text, const char *delim) {
@@ -49,6 +65,27 @@ vector<char*> parser(string text, const char *delim) {
 }
 */
 
+bool redirectionstuff(vector<char*> &onecommand) {
+	for(unsigned int i = 0; i < onecommand.size(); i++) {
+		if(strcmp
+		//let's do input < first
+		int save = dup(0);
+		if(-1 == close(0)) {
+			perror("close");
+		}
+		int fd = open(blah, O_RDONLY);
+		if(-1 == fd) {
+			perror("error with open");
+			exit(1);
+		}
+		//run some execvp shti
+		
+		
+		close(0);		//closing what i oepened
+		dup2(0, save);		//have to restore stdin to 0
+		close(save);		//gotta close the backup
+			
+
 bool execvpstuff(vector<char*> &onecommand) {
 	bool returnval = true;
 	int pipearr[2];
@@ -58,37 +95,37 @@ bool execvpstuff(vector<char*> &onecommand) {
 	if(onecommand.size() < 2) {
 		returnval = true;
 	} else {
-	
-	if(strcmp(command[0], "exit") == 0) {
-		onecommand.clear();
-		exit(0);
-	} else {
-		pipe(pipearr);		//some pipe bs.
-		int pid = fork();
-		if(pid == -1) {
-			perror("Error with fork");
-			exit(1);
-		} else if(pid == 0) {	//child process
-			close(pipearr[0]);
-			if(-1 == execvp(command[0], command)) {
-				returnval = false;
-				write(pipearr[1], &returnval, sizeof(returnval));
-				close(pipearr[1]);
-				perror("Error wit execvp");
-			}
-			onecommand.clear();		//clear vector so it can hold next command.
+		
+		if(strcmp(command[0], "exit") == 0) {
+			onecommand.clear();
 			exit(0);
+		} else {
+			pipe(pipearr);		//some pipe bs.
+			int pid = fork();
+			if(pid == -1) {
+				perror("Error with fork");
+				exit(1);
+			} else if(pid == 0) {	//child process
+				close(pipearr[0]);
+				if(-1 == execvp(command[0], command)) {
+					returnval = false;
+					write(pipearr[1], &returnval, sizeof(returnval));
+					close(pipearr[1]);
+					perror("Error wit execvp");
+				}
+				onecommand.clear();		//clear vector so it can hold next command.
+				exit(0);
+			}
+			if(-1 == wait(0)) {
+				perror("error with wait");
+			}
+			close(pipearr[1]);
+			read(pipearr[0], &returnval, sizeof(returnval));
+			close(pipearr[0]);	
+			//parent here
+			onecommand.clear();
+			return returnval;
 		}
-		if(-1 == wait(0)) {
-			perror("error with wait");
-		}
-		close(pipearr[1]);
-		read(pipearr[0], &returnval, sizeof(returnval));
-		close(pipearr[0]);	
-		//parent here
-		onecommand.clear();
-		return returnval;
-	}
 	}
 	return returnval;
 }
@@ -170,7 +207,7 @@ void terminal() {
 			onecommand.push_back(words.at(i));
 		//	for(int j = 0; j < onecommand.size(); j++) cout << "oc " << j << onecommand.at(j) << endl;
 		} else {
-			onecommand.push_back(NULL);
+			onecommand.push_back(NULL);	//needs to end in null for exec
 			success = execvpstuff(onecommand);
 			if(issemi) {
 				onecommand.clear();
