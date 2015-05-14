@@ -7,6 +7,9 @@
 #include <vector>
 #include <cstring>
 #include <stdlib.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 using namespace std;
 
@@ -65,31 +68,111 @@ vector<char*> parser(string text, const char *delim) {
 }
 */
 
-bool redirectionstuff(vector<char*> &onecommand) {
+bool redirectors(vector<char*> &onecommand) {
+	size_t i = 0;
+	//find the first redirector
+	//putting everything before it into char* vector along the way
+	int redirector = -1;
+	vector<char*> newcommand;
+	for(i = 0; (i < onecommand.size() - 1) && (redirector < 0); i++) {
+		if(strcmp(onecommand.at(i), "<") == 0) {
+			redirector = 0;		//input
+		} else if(strcmp(onecommand.at(i), ">") == 0) {
+			redirector = 1;		//single output
+		} else if(strcmp(onecommand.at(i), ">>") == 0) {
+			redirector = 2;		//double output
+		} else if(strcmp(onecommand.at(i), "|") == 0) {
+			redirector = 3;		//pipe
+		} else {
+			newcommand.push_back(onecommand.at(i));
+			cout << "theo" << onecommand.at(i) << endl;
+		}
+	}
+	newcommand.push_back(NULL);
+
+	//it's an input
+	if(redirector == 0) {		
+		if(i < onecommand.size()) {		//check if file is in the vector
+			//close stdin
+			int backup = dup(0);
+			if(-1 == backup) {
+				perror("error with dup");
+			}
+			if(-1 == close(0)) {
+				perror("error with close");
+			}
+
+			int fd = open(onecommand.at(i), O_RDONLY);	//open to lowest file desc
+			if(-1 == fd) {
+				perror("error with open");
+				exit(1);
+			}
+
+			int forkid = fork();
+			if(-1 == forkid) {
+				perror("error with fork");
+				exit(1);
+			} else if(0 == forkid) {
+				//the child
+				if(-1 == execvp(newcommand.at(0), &newcommand[0])) {
+					perror("erro with execvp");
+				}
+				cout << "before exit execvp" << endl;
+				exit(0);
+			}
+			cout << "in parent" << endl;
+			if(-1 == wait(0)) {
+				perror("error with wait");
+			}
+			//parent here i guess
+			if(-1 == dup2(backup, 0)) {
+				perror("error with dup2");
+			}
+			if(-1 == close(backup)) {
+				perror("error with close backup");
+			}
+		}
+	}
+	
+	return true;
+}
+
+/*
+vector<char*> redirectionstuff(vector<char*> &onecommand) {
+	vector<char*> newcommand;
 	for(unsigned int i = 0; i < onecommand.size(); i++) {
-		if(strcmp
-		//let's do input < first
-		int save = dup(0);
-		if(-1 == close(0)) {
-			perror("close");
-		}
-		int fd = open(blah, O_RDONLY);
-		if(-1 == fd) {
-			perror("error with open");
-			exit(1);
-		}
-		//run some execvp shti
+		if(strcmp(onecommand.at(i), "<") == 0) {
+			if(i > 0 && i+1 > onecommand.size()) {
+				//let's do input < first
+				if(-1 == close(0)) {
+					perror("close");
+				}
+				int fd = open(blah, O_RDONLY);	//opened to 0 since we closed 0
+				if(-1 == fd) {
+					perror("error with open");
+					exit(1);
+				}
+				//run some execvp shti
+				newcommand.push_back(onecommand.at(i-1));
+				while(i < )
 		
-		
-		close(0);		//closing what i oepened
-		dup2(0, save);		//have to restore stdin to 0
-		close(save);		//gotta close the backup
-			
+				//close(0);		//closing what i oepened
+			} else {
+				cout << "Invalid use of redirection" << endl;
+				exit(1);
+			}
+		}
+	}
+	return newcommand;
+}
+*/			
 
 bool execvpstuff(vector<char*> &onecommand) {
 	bool returnval = true;
 	int pipearr[2];
-	char **command = &onecommand[0]; //stackoverflow.com/questions/5846934/
+
+	char** command = &onecommand[0]; //stackoverflow.com/questions/5846934/
+
 		//EXECVP STUFF HERE
 	//http://github.com/mikeizbicki/ucr-cs100/blob/2015spring/textbook/assignment-help/syscalls/exec.md
 	if(onecommand.size() < 2) {
@@ -208,7 +291,9 @@ void terminal() {
 		//	for(int j = 0; j < onecommand.size(); j++) cout << "oc " << j << onecommand.at(j) << endl;
 		} else {
 			onecommand.push_back(NULL);	//needs to end in null for exec
-			success = execvpstuff(onecommand);
+			success = redirectors(onecommand);
+			cout << success << endl;
+	//		success = execvpstuff(onecommand);
 			if(issemi) {
 				onecommand.clear();
 				//moveon
