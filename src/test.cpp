@@ -68,7 +68,20 @@ vector<char*> parser(string text, const char *delim) {
 }
 */
 
-bool redirectors(vector<char*> &onecommand) {
+bool redir0(const vector<char*> &onecommand, size_t i) {
+		//close stdin
+		if(-1 == close(0)) {
+			perror("error with close");
+		}
+
+		int fd = open(onecommand.at(i), O_RDONLY);	//open to lowest file desc
+		if(-1 == fd) {
+			perror("error with open");
+			exit(1);
+		}
+}
+
+bool redirectors(const vector<char*> &onecommand) {
 	size_t i = 0;
 	//find the first redirector
 	//putting everything before it into char* vector along the way
@@ -88,51 +101,52 @@ bool redirectors(vector<char*> &onecommand) {
 			cout << "theo" << onecommand.at(i) << endl;
 		}
 	}
+
 	newcommand.push_back(NULL);
+	
+	if(redirector < 0) return false;
 
+	int backup = dup(redirector);
+	if(-1 == backup) {
+		perror("error with dup");
+	}
 	//it's an input
-	if(redirector == 0) {		
+	if(redirector == 0) {
 		if(i < onecommand.size()) {		//check if file is in the vector
-			//close stdin
-			int backup = dup(0);
-			if(-1 == backup) {
-				perror("error with dup");
-			}
-			if(-1 == close(0)) {
-				perror("error with close");
-			}
-
-			int fd = open(onecommand.at(i), O_RDONLY);	//open to lowest file desc
-			if(-1 == fd) {
-				perror("error with open");
-				exit(1);
-			}
-
-			int forkid = fork();
-			if(-1 == forkid) {
-				perror("error with fork");
-				exit(1);
-			} else if(0 == forkid) {
-				//the child
-				if(-1 == execvp(newcommand.at(0), &newcommand[0])) {
-					perror("erro with execvp");
-				}
-				cout << "before exit execvp" << endl;
-				exit(0);
-			}
-			cout << "in parent" << endl;
-			if(-1 == wait(0)) {
-				perror("error with wait");
-			}
-			//parent here i guess
-			if(-1 == dup2(backup, 0)) {
-				perror("error with dup2");
-			}
-			if(-1 == close(backup)) {
-				perror("error with close backup");
-			}
+			redir0(onecommand, i);
+		} else {
+			perror("improper use of <");
+			return false;
 		}
 	}
+
+	int forkid = fork();
+		if(-1 == forkid) {
+			perror("error with fork");
+			exit(1);
+		} else if(0 == forkid) {
+			//the child
+			if(-1 == execvp(newcommand.at(0), &newcommand[0])) {
+				perror("erro with execvp");
+			}
+			cout << "before exit execvp" << endl;
+			exit(0);
+		}
+		cout << "in parent" << endl;
+		if(-1 == wait(0)) {
+			perror("error with wait");
+		}
+
+		
+		//parent here i guess
+		if(-1 == dup2(backup, redirector)) {
+			perror("error with dup2");
+		}
+		if(-1 == close(backup)) {
+			perror("error with close backup");
+		}
+		
+
 	
 	return true;
 }
@@ -225,7 +239,11 @@ void terminal() {
 	if(pid == -1) {				//error
 		perror("gethostname");
 	} else {
-		 cout << getlogin() << "§" << host << ':' << ' ';
+		printf("%c[%dm", 0x1B, 100);
+		printf("%c[%dm", 0x1B, 96);
+		cout << getlogin() << "Ω" << host << " §";
+		printf("%c[%dm", 0x1B, 0);
+		cout << ' ';
 	}
 	//~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 	
