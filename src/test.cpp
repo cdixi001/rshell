@@ -117,38 +117,29 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 
 }
 
-/*
-bool redir0(const vector<char*> &onecommand, size_t i) {
-		//close stdin
-		if(-1 == close(0)) {
-			perror("error with close0");
+
+
+bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
+	//getting right side of pipe
+	vector<char*> rightside;
+	int redirector = -1;
+	cout << "onecommand size" << onecommand.size() << endl;
+	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
+		if(strcmp(onecommand.at(i), "<") == 0) {
+			redirector = 0;		//input
+		} else if(strcmp(onecommand.at(i), ">") == 0) {
+			redirector = 1;		//single output
+		} else if(strcmp(onecommand.at(i), ">>") == 0) {
+			redirector = 2;		//double output
+		} else if(strcmp(onecommand.at(i), "|") == 0) {
+			redirector = 3;		//pipe
+		} else {
+			rightside.push_back(onecommand.at(i));
 		}
-
-		int fd = open(onecommand.at(i), O_RDONLY);	//open to lowest file desc
-		if(-1 == fd) {
-			perror("error with open0");
-			exit(1);
-		}
-	return true;
-}
-
-bool redir1(const vector<char*> &onecommand, size_t i, int redirector) {
-	//close stdout
-	if(-1 == close(1)) {
-		perror("error with close1");
 	}
-	if(redirector == 1) {
-		int fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_TRUNC, S_IRWXU);
-	} else int fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_APPEND, S_IRWXU);
 
-	if(-1 == fd) {
-		perror("error with open1");
-		exit(1);
-	}
-	return true;
-}
+	rightside.push_back(NULL);
 
-bool redir3(const vector<char*> &onecommand, size_t i) {
 	int fd[2];
 	if(-1 == pipe(fd)) {
 		perror(__FILE__ ": " "pipe");
@@ -161,7 +152,7 @@ bool redir3(const vector<char*> &onecommand, size_t i) {
 		//child
 		close(1);	//need to error check
 		dup(fd[1]);	//need to error check
-		execvp();
+		execvp(leftside.at(0), &leftside[0]);
 	}
 	//parent
 	//fork again
@@ -171,11 +162,14 @@ bool redir3(const vector<char*> &onecommand, size_t i) {
 	} else if(0 == forkid) {
 		close(0);	//need to error check
 		dup(fd[0]);	//need to error check
-		execvp();
+		execvp(rightside.at(0), &rightside[0]);
 	}
+	//parent again. waiting
+	cout << "waiting" << endl;
+	wait(0);
+	cout << "done waiting" << endl;
 	return true;
 }
-*/	
 
 
 bool redirectors(const vector<char*> &onecommand) {
@@ -184,7 +178,7 @@ bool redirectors(const vector<char*> &onecommand) {
 	//putting everything before it into char* vector along the way
 	int redirector = -1;
 	vector<char*> newcommand;
-	for(i = 0; (i < onecommand.size()) && (redirector < 0); i++) {
+	for(i = 0; (i < onecommand.size()- 1) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
 		} else if(strcmp(onecommand.at(i), ">") == 0) {
@@ -208,7 +202,7 @@ bool redirectors(const vector<char*> &onecommand) {
 	if(redirector < 3) {
 		execinout(onecommand, newcommand, i, redirector);
 	} else if(redirector == 3) {
-	
+		redir3(onecommand, newcommand, i);	
 	}
 
 	return true;
