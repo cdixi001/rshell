@@ -68,18 +68,115 @@ vector<char*> parser(string text, const char *delim) {
 }
 */
 
+bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, size_t i, int redirector) {
+	int fd;
+	int forkid = fork();
+	if(-1 == forkid) {
+		perror("error with fork");
+		exit(1);
+	} else if(0 == forkid) {
+		//the child
+		if(redirector == 0) {
+			if(-1 == close(0)) {
+				perror("error with close0");
+			}
+			fd = open(onecommand.at(i), O_RDONLY);
+			if(-1 == fd) {
+				perror("error with open0");
+			}
+		} else if(redirector == 1) {
+			if(-1 == close(1)) {
+				perror("error with close1");
+			}
+			fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_TRUNC, S_IRWXU);
+			if(-1 == fd) {
+				perror("error with open1");
+			}
+		} else if(redirector == 2) {
+			if(-1 == close(1)) {
+				perror("error with close1");
+			}
+			fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_APPEND, S_IRWXU);
+			if(-1 == fd) {
+				perror("error with open1");
+			}
+		}
+
+		if(-1 == execvp(newcommand.at(0), &newcommand[0])) {
+			perror("erro with execvp");
+		}
+		cout << "before exit execvp" << endl;
+		exit(0);
+	}
+	if(-1 == wait(0)) {
+		perror("error with wait");
+	}
+		
+	//parent here i guess
+	return true;
+
+}
+
+/*
 bool redir0(const vector<char*> &onecommand, size_t i) {
 		//close stdin
 		if(-1 == close(0)) {
-			perror("error with close");
+			perror("error with close0");
 		}
 
 		int fd = open(onecommand.at(i), O_RDONLY);	//open to lowest file desc
 		if(-1 == fd) {
-			perror("error with open");
+			perror("error with open0");
 			exit(1);
 		}
+	return true;
 }
+
+bool redir1(const vector<char*> &onecommand, size_t i, int redirector) {
+	//close stdout
+	if(-1 == close(1)) {
+		perror("error with close1");
+	}
+	if(redirector == 1) {
+		int fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_TRUNC, S_IRWXU);
+	} else int fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_APPEND, S_IRWXU);
+
+	if(-1 == fd) {
+		perror("error with open1");
+		exit(1);
+	}
+	return true;
+}
+
+bool redir3(const vector<char*> &onecommand, size_t i) {
+	int fd[2];
+	if(-1 == pipe(fd)) {
+		perror(__FILE__ ": " "pipe");
+	}
+	
+	int forkid = fork();
+	if(-1 == forkid) {
+		perror("error with fork");
+	} else if(0 == forkid) {
+		//child
+		close(1);	//need to error check
+		dup(fd[1]);	//need to error check
+		execvp();
+	}
+	//parent
+	//fork again
+	forkid = fork();
+	if(-1 == forkid) {
+		perror("error with fork2");
+	} else if(0 == forkid) {
+		close(0);	//need to error check
+		dup(fd[0]);	//need to error check
+		execvp();
+	}
+	return true;
+}
+*/	
+
 
 bool redirectors(const vector<char*> &onecommand) {
 	size_t i = 0;
@@ -87,7 +184,7 @@ bool redirectors(const vector<char*> &onecommand) {
 	//putting everything before it into char* vector along the way
 	int redirector = -1;
 	vector<char*> newcommand;
-	for(i = 0; (i < onecommand.size() - 1) && (redirector < 0); i++) {
+	for(i = 0; (i < onecommand.size()) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
 		} else if(strcmp(onecommand.at(i), ">") == 0) {
@@ -98,58 +195,25 @@ bool redirectors(const vector<char*> &onecommand) {
 			redirector = 3;		//pipe
 		} else {
 			newcommand.push_back(onecommand.at(i));
-			cout << "theo" << onecommand.at(i) << endl;
 		}
 	}
 
 	newcommand.push_back(NULL);
 	
-	if(redirector < 0) return false;
-
-	int backup = dup(redirector);
-	if(-1 == backup) {
-		perror("error with dup");
-	}
-	//it's an input
-	if(redirector == 0) {
-		if(i < onecommand.size()) {		//check if file is in the vector
-			redir0(onecommand, i);
-		} else {
-			perror("improper use of <");
-			return false;
-		}
-	}
-
-	int forkid = fork();
-		if(-1 == forkid) {
-			perror("error with fork");
-			exit(1);
-		} else if(0 == forkid) {
-			//the child
-			if(-1 == execvp(newcommand.at(0), &newcommand[0])) {
-				perror("erro with execvp");
-			}
-			cout << "before exit execvp" << endl;
-			exit(0);
-		}
-		cout << "in parent" << endl;
-		if(-1 == wait(0)) {
-			perror("error with wait");
-		}
-
-		
-		//parent here i guess
-		if(-1 == dup2(backup, redirector)) {
-			perror("error with dup2");
-		}
-		if(-1 == close(backup)) {
-			perror("error with close backup");
-		}
-		
-
+	//this is supposed to take care of position of redirector
+	//no redirector, redirector is last thing, redirector is first thing
+	if(redirector < 0 || i >= onecommand.size() || i == 0) return false;
 	
+	//it's an input
+	if(redirector < 3) {
+		execinout(onecommand, newcommand, i, redirector);
+	} else if(redirector == 3) {
+	
+	}
+
 	return true;
 }
+
 
 /*
 vector<char*> redirectionstuff(vector<char*> &onecommand) {
