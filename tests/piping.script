@@ -1,0 +1,209 @@
+Script started on Mon 18 May 2015 12:10:27 AM PDT
+~
+cdixi001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd Documents/cs100/rshell/
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (piping) [0;36m$[0m make
+make: Nothing to be done for `all'.
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (piping) [0;36m$[0m bin/rshell
+¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls
+bin  inputfile	LICENSE  Makefile  outputfile  outputfile;cat  README.md  src  tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m rm outputfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m rm output	^[[C^[[C
+rm: cannot remove `output\033[C\033[C': No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m 
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m rm outputfile;cat
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls
+bin  inputfile	LICENSE  Makefile  README.md  src  tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #lets bei gin!
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat  < inputfile
+blah
+blah
+theo
+dasq
+yena
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat			<  	inputfile
+blah
+blah
+theo
+dasq
+yena
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls > outputfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat < outputfile
+bin
+inputfile
+LICENSE
+Makefile
+outputfile
+README.md
+src
+tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls -a > outputfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat < o7utput      utputfile
+.
+..
+bin
+.dotfile
+.dotfolder
+.git
+.gitignore
+inputfile
+LICENSE
+Makefile
+outputfile
+README.md
+src
+tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls -l >> outputfile
+redirector is 2
+opening
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat < outputfile
+.
+..
+bin
+.dotfile
+.dotfolder
+.git
+.gitignore
+inputfile
+LICENSE
+Makefile
+outputfile
+README.md
+src
+tests
+total 28
+drwx------ 2 cdixi001 csmajs 4096 May 17 23:56 bin
+-rw------- 1 cdixi001 csmajs   25 May 18 00:02 inputfile
+-rw------- 1 cdixi001 csmajs 1473 Apr 16 12:57 LICENSE
+-rw------- 1 cdixi001 csmajs  558 May  4 17:11 Makefile
+-rwx------ 1 cdixi001 csmajs  103 May 18 00:05 outputfile
+-rw------- 1 cdixi001 csmajs 2406 Apr 27 16:41 README.md
+drwx------ 2 cdixi001 csmajs 4096 May 17 23:56 src
+drwx------ 2 cdixi001 csmajs 4096 May 18 00:03 tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #oops sorry abot cout statements
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls | grep cpp
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls
+bin  inputfile	LICENSE  Makefile  outputfile  README.md  src  tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls | grep file
+inputfile
+Makefile
+outputfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls | grep file | tee outfile
+inputfile
+Makefile
+outputfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat < outfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls | grep file | > outfile
+erro with execvp: Permission denied
+before exit execvp
+erorr with execvp: Permission denied
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat outfile
+inputfile
+Makefile
+outfile
+outputfile
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #it throws sojme errors but gets the job done
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls  
+bin  inputfile	LICENSE  Makefile  outfile  outputfile	README.md  src	tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls -a
+.   bin       .dotfolder  .gitignore  LICENSE	outfile     README.md  tests
+..  .dotfile  .git	  inputfile   Makefile	outputfile  src
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls -a | grep dot >> outfile
+redirector is 2
+opening
+erro with execvp: Permission denied
+before exit execvp
+erorr with execvp: Permission denied
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat >>  <  outfile
+inputfile
+Makefile
+outfile
+outputfile
+.dotfile
+.dotfolder
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #input and output at beginning an  d end
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m < dasq
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m > hello
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls
+bin  inputfile	LICENSE  Makefile  outfile  outputfile	README.md  src	tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls >
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls >>
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls
+bin  inputfile	LICENSE  Makefile  outfile  outputfile	README.md  src	tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #pu  cz uz you're putting nothing into soet  mething or something into nothing
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #so in my opinion it's not really ane  error
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m ls > outfile2 | blah
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat < outfile2
+bin
+inputfile
+LICENSE
+Makefile
+outfile
+outfile2
+outputfile
+README.md
+src
+tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #piping shouldnt work after input and output files
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #and it doesnt
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat < outfile2 | grep file
+bin
+inputfile
+LICENSE
+Makefile
+outfile
+outfile2
+outputfile
+README.md
+src
+tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m # no extra credit :(
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat <  inputfile | tr A-Z a-z | tee newOutputFile | tr a-z A-Z > newOutputFile2
+blah
+blah
+theo
+dasq
+yena
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m cat new         ls
+bin  inputfile	LICENSE  Makefile  outfile  outfile2  outputfile  README.md  src  tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #ouch
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m #thanks busra you're so awesome please give me points
+Error wit execvp: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu §[0m exit
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (piping) [0;36m$[0m exit
+exit
+~
+cdixi001@hammer $ exit
+exit
+
+Script done on Mon 18 May 2015 12:21:25 AM PDT
