@@ -104,6 +104,7 @@ bool setfds(const vector<char*> &onecommand, size_t i, int redirector) {
 			}
 			
 		}
+return true;
 }
 
 bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, size_t i, int redirector) {
@@ -112,8 +113,8 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 //find next redirector to set future flags
 	int nextredirector = -1;
 	vector<char*> nextcommand;
-	int j = i;
-	for(j; (j < onecommand.size()- 1) && (nextredirector < 0); j++) {
+	size_t j = i;
+	for(j = j; (j < onecommand.size()- 1) && (nextredirector < 0); j++) {
 		if(strcmp(onecommand.at(j), "<") == 0) {
 			nextredirector = 0;		//input
 		} else if(strcmp(onecommand.at(j), ">") == 0) {
@@ -134,7 +135,6 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 		exit(1);
 	} else if(0 == forkid) {
 		//the child
-		cout << "redirector = " << redirector << endl;
 		
 		setfds(onecommand, i, redirector);
 		
@@ -163,11 +163,12 @@ bool redirtest(const vector<char*> &onecommand, vector<char*> leftside, size_t i
 	if(prevredir < 3) {
 		execinout(onecommand, leftside, i, prevredir);
 	}
+	
 
 	//getting right side of pipe
 	vector<char*> rightside;
 	int redirector = -1;
-	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
+	for(i = i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
 		} else if(strcmp(onecommand.at(i), ">") == 0) {
@@ -192,7 +193,6 @@ bool redirtest(const vector<char*> &onecommand, vector<char*> leftside, size_t i
 		perror("error with fork");
 	} else if(0 == forkid) {
 		//child
-		
 		if(-1 == close(1)) {
 			perror("error with close");
 		}	//need to error check
@@ -221,7 +221,6 @@ bool redirtest(const vector<char*> &onecommand, vector<char*> leftside, size_t i
 		if(-1 == (backupin = dup(0))) {
 			perror("error with dup");
 		}
-		cout << "backupin" << backupin << endl;
 		if(-1 == close(0)) {
 			perror("error with close");
 		}
@@ -229,13 +228,11 @@ bool redirtest(const vector<char*> &onecommand, vector<char*> leftside, size_t i
 		if(-1 == (blah = dup(fd[0]))) {
 			perror("error with dup");
 		}
-		cout << "blah" << blah << endl;
 		if(-1 == close(fd[0])) {
 			perror("error with close");
 		}
 
 		if(rightside.size() > 1) {
-			cout  <<  "recursing" << endl;
 			redirtest(onecommand, rightside, i, redirector);
 		}
 
@@ -259,7 +256,7 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 	//getting right side of pipe
 	vector<char*> rightside;
 	int redirector = -1;
-	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
+	for(i = i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
 		} else if(strcmp(onecommand.at(i), ">") == 0) {
@@ -356,7 +353,7 @@ bool redirectors(const vector<char*> &onecommand) {
 	vector<char*> newcommand;
 
 //while(i < onecommand.size() - 1) {
-	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
+	for(i = i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
 		} else if(strcmp(onecommand.at(i), ">>") == 0) {
