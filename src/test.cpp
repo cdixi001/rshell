@@ -22,9 +22,11 @@ void addSpaces(string &text, const string &op) {
 
 	while(pos != string::npos) {
 		//pos+1 to go to thing pos was pointing at, but want to move AFTER that
-		text.insert(pos, " ");	//one space before
-		text.insert(pos+1+length, " "); //and one space after
-		pos = text.find(op, pos+1+length);
+		if(text.substr(pos, length) != op) {
+			text.insert(pos, " ");	//one space before
+			text.insert(pos+1+length, " "); //and one space after
+			pos = text.find(op, pos+1+length);
+		} else pos = text.find(op, pos+2+length);
 	}
 }
 
@@ -68,21 +70,15 @@ vector<char*> parser(string text, const char *delim) {
 }
 */
 
-bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, size_t i, int redirector) {
+bool setfds(const vector<char*> &onecommand, size_t i, int redirector) {
 	int fd;
-	int forkid = fork();
-	if(-1 == forkid) {
-		perror("error with fork");
-		exit(1);
-	} else if(0 == forkid) {
-		//the child
-		if(redirector == 0) {
+	if(redirector == 0) {
 			if(-1 == close(0)) {
 				perror("error with close0");
 			}
 			fd = open(onecommand.at(i), O_RDONLY);
 			if(-1 == fd) {
-				perror("error with open0");
+				perror("error with open0 daassqqqq");
 			}
 		} else if(redirector == 1) {
 			if(-1 == close(1)) {
@@ -93,14 +89,59 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 				perror("error with open1");
 			}
 		} else if(redirector == 2) {
+			cout << "redirector is 2" << endl;
 			if(-1 == close(1)) {
 				perror("error with close1");
 			}
+			cerr << "opening" << endl;
 			fd = open(onecommand.at(i), O_WRONLY|O_CREAT|O_APPEND, S_IRWXU);
 			if(-1 == fd) {
 				perror("error with open1");
 			}
+		} else if(redirector == 4) {
+			if(-1 == close(0)) {
+				perror("error with close4");
+			}
+			
 		}
+}
+
+bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, size_t i, int redirector) {
+
+//~~~~~~~~~~~~~~~~~--------------------------------------------------------
+//find next redirector to set future flags
+	int nextredirector = -1;
+	vector<char*> nextcommand;
+	int j = i;
+	for(j; (j < onecommand.size()- 1) && (nextredirector < 0); j++) {
+		if(strcmp(onecommand.at(j), "<") == 0) {
+			nextredirector = 0;		//input
+		} else if(strcmp(onecommand.at(j), ">") == 0) {
+			nextredirector = 1;		//single output
+		} else if(strcmp(onecommand.at(j), ">>") == 0) {
+			nextredirector = 2;		//double output
+		} else if(strcmp(onecommand.at(j), "|") == 0) {
+			nextredirector = 3;		//pipe
+		} else {
+			nextcommand.push_back(onecommand.at(j));
+		}
+	}
+//~~~~~~~~~~~~~~~~~-------------------------------------------------------
+	
+	int forkid = fork();
+	if(-1 == forkid) {
+		perror("error with fork");
+		exit(1);
+	} else if(0 == forkid) {
+		//the child
+		cout << "redirector = " << redirector << endl;
+		
+		setfds(onecommand, i, redirector);
+		
+//		if(nextredirector > -1) {
+//			execinout(onecommand, nextcommand, j, nextredirector);
+//		}
+
 
 		if(-1 == execvp(newcommand.at(0), &newcommand[0])) {
 			perror("erro with execvp");
@@ -118,12 +159,11 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 }
 
 
-
+//pipes
 bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 	//getting right side of pipe
 	vector<char*> rightside;
 	int redirector = -1;
-	cout << "onecommand size" << onecommand.size() << endl;
 	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
@@ -137,7 +177,6 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 			rightside.push_back(onecommand.at(i));
 		}
 	}
-
 	rightside.push_back(NULL);
 
 	int fd[2];
@@ -150,24 +189,64 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 		perror("error with fork");
 	} else if(0 == forkid) {
 		//child
-		close(1);	//need to error check
-		dup(fd[1]);	//need to error check
-		execvp(leftside.at(0), &leftside[0]);
-	}
+		if(-1 == close(fd[0])) {
+			perror("error with close");
+		}
+		if(-1 == close(1)) {
+			perror("error with close");
+		}	//need to error check
+		if(-1 == dup(fd[1])) {
+			perror("error with dup");
+		}	//need to error check
+		if(-1 == execvp(leftside.at(0), &leftside[0])) {
+			perror("erorr with execvp");
+		}
+		exit(1);
+	} else {
 	//parent
-	//fork again
-	forkid = fork();
-	if(-1 == forkid) {
-		perror("error with fork2");
-	} else if(0 == forkid) {
-		close(0);	//need to error check
-		dup(fd[0]);	//need to error check
-		execvp(rightside.at(0), &rightside[0]);
+
+		//fork again
+		int forkid2 = fork();
+		if(-1 == forkid2) {
+			perror("error with fork2");
+		} else if(0 == forkid2) {
+			if(-1 == close(fd[1])) {
+				perror("error with close");
+			}
+			if(-1 == close(0)) {	//need to error check
+				perror("error with close");
+			}
+			if(-1 == dup(fd[0])) {	//need to error check
+				perror("error with dup");
+			}
+			
+			//close(1) dup(fd2[1])
+
+			if(-1 == execvp(rightside.at(0), &rightside[0])) {
+				perror("eror with execvp");
+			}
+			exit(1);
+		}	
+	
+	}	//for fork1 else
+
+	if(-1 == close(fd[0])) {
+		perror("error with close");
 	}
+	if(-1 == close(fd[1])) {
+		perror("error with close");
+	}
+	
 	//parent again. waiting
-	cout << "waiting" << endl;
-	wait(0);
-	cout << "done waiting" << endl;
+	if(-1 == wait(0)) {
+		perror("error with waitpid");
+	}
+
+	if(-1 == wait(0)) {
+		perror("error with wait2");
+	}
+
+
 	return true;
 }
 
@@ -178,13 +257,15 @@ bool redirectors(const vector<char*> &onecommand) {
 	//putting everything before it into char* vector along the way
 	int redirector = -1;
 	vector<char*> newcommand;
-	for(i = 0; (i < onecommand.size()- 1) && (redirector < 0); i++) {
+
+//while(i < onecommand.size() - 1) {
+	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
 		if(strcmp(onecommand.at(i), "<") == 0) {
 			redirector = 0;		//input
-		} else if(strcmp(onecommand.at(i), ">") == 0) {
-			redirector = 1;		//single output
 		} else if(strcmp(onecommand.at(i), ">>") == 0) {
-			redirector = 2;		//double output
+			redirector = 2;		//single output
+		} else if(strcmp(onecommand.at(i), ">") == 0) {
+			redirector = 1;		//double output
 		} else if(strcmp(onecommand.at(i), "|") == 0) {
 			redirector = 3;		//pipe
 		} else {
@@ -192,12 +273,13 @@ bool redirectors(const vector<char*> &onecommand) {
 		}
 	}
 
+
 	newcommand.push_back(NULL);
 	
 	//this is supposed to take care of position of redirector
 	//no redirector, redirector is last thing, redirector is first thing
-	if(redirector < 0 || i >= onecommand.size() || i == 0) return false;
-	
+	if(redirector < 0 || i >= onecommand.size() - 1 || i-1 == 0) return false;
+
 	//it's an input
 	if(redirector < 3) {
 		execinout(onecommand, newcommand, i, redirector);
@@ -205,39 +287,15 @@ bool redirectors(const vector<char*> &onecommand) {
 		redir3(onecommand, newcommand, i);	
 	}
 
+
+	redirector = -1;
+	newcommand.clear();
+//}
+
 	return true;
 }
 
 
-/*
-vector<char*> redirectionstuff(vector<char*> &onecommand) {
-	vector<char*> newcommand;
-	for(unsigned int i = 0; i < onecommand.size(); i++) {
-		if(strcmp(onecommand.at(i), "<") == 0) {
-			if(i > 0 && i+1 > onecommand.size()) {
-				//let's do input < first
-				if(-1 == close(0)) {
-					perror("close");
-				}
-				int fd = open(blah, O_RDONLY);	//opened to 0 since we closed 0
-				if(-1 == fd) {
-					perror("error with open");
-					exit(1);
-				}
-				//run some execvp shti
-				newcommand.push_back(onecommand.at(i-1));
-				while(i < )
-		
-				//close(0);		//closing what i oepened
-			} else {
-				cout << "Invalid use of redirection" << endl;
-				exit(1);
-			}
-		}
-	}
-	return newcommand;
-}
-*/			
 
 bool execvpstuff(vector<char*> &onecommand) {
 	bool returnval = true;
@@ -314,6 +372,12 @@ void terminal() {
 	addSpaces(input, "&&");
 	addSpaces(input, "||");
 	addSpaces(input, "#");
+	//spaces for redirection
+	addSpaces(input, "<");
+	addSpaces(input, ">>");
+	addSpaces(input, ">");
+	addSpaces(input, "|");
+
 
 	
 	//vector<char*> words;
@@ -352,6 +416,8 @@ void terminal() {
 	bool ispound;
 	bool isoperator;
 
+	bool hasredirectors = false;
+
 	
 	size_t i = 0;
 	
@@ -361,15 +427,25 @@ void terminal() {
 		isor = strcmp(words.at(i), "||") == 0;
 		ispound = strcmp(words.at(i), "#") == 0;
 		isoperator = issemi || isand || isor || ispound;
-		
+	
+	//once we find in onecommand, don't want to reset it
+		if(hasredirectors == false) {
+			hasredirectors = (strcmp(words.at(i), "<") == 0) ||
+					(strcmp(words.at(i), ">") == 0) ||
+					(strcmp(words.at(i), ">>") == 0) ||
+					(strcmp(words.at(i), "|") == 0);
+		}
+
 		if(!isoperator) {
 			onecommand.push_back(words.at(i));
 		//	for(int j = 0; j < onecommand.size(); j++) cout << "oc " << j << onecommand.at(j) << endl;
 		} else {
 			onecommand.push_back(NULL);	//needs to end in null for exec
-			success = redirectors(onecommand);
-			cout << success << endl;
-	//		success = execvpstuff(onecommand);
+			if(hasredirectors) {
+				//redirectors takes care of chained
+				success = redirectors(onecommand);
+			} else success = execvpstuff(onecommand);
+			hasredirectors = false;	//have to reset the flag
 			if(issemi) {
 				onecommand.clear();
 				//moveon
