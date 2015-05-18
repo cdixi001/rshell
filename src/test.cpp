@@ -159,6 +159,101 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 }
 
 
+bool redirtest(const vector<char*> &onecommand, vector<char*> leftside, size_t i, int prevredir) {
+	if(prevredir < 3) {
+		execinout(onecommand, leftside, i, prevredir);
+	}
+
+	//getting right side of pipe
+	vector<char*> rightside;
+	int redirector = -1;
+	for(i; (i < onecommand.size()- 1) && (redirector < 0); i++) {
+		if(strcmp(onecommand.at(i), "<") == 0) {
+			redirector = 0;		//input
+		} else if(strcmp(onecommand.at(i), ">") == 0) {
+			redirector = 1;		//single output
+		} else if(strcmp(onecommand.at(i), ">>") == 0) {
+			redirector = 2;		//double output
+		} else if(strcmp(onecommand.at(i), "|") == 0) {
+			redirector = 3;		//pipe
+		} else {
+			rightside.push_back(onecommand.at(i));
+		}
+	}
+	rightside.push_back(NULL);
+
+	int fd[2];
+	if(-1 == pipe(fd)) {
+		perror(__FILE__ ": " "pipe");
+	}
+	
+	int forkid = fork();
+	if(-1 == forkid) {
+		perror("error with fork");
+	} else if(0 == forkid) {
+		//child
+		
+		if(-1 == close(1)) {
+			perror("error with close");
+		}	//need to error check
+		if(-1 == dup(fd[1])) {
+			perror("error with dup");
+		}	//need to error check
+		if(-1 == close(fd[0])) {
+			perror("error with close");
+		}
+
+		if(-1 == execvp(leftside.at(0), &leftside[0])) {
+			perror("erorr with execvp");
+		}
+		exit(1);
+	} else {
+	//parent
+		if(-1 == wait(0)) {
+			perror("error with waitpid");
+		}
+
+		if(-1 == close(fd[1])) {
+			perror("error with close");
+		}
+
+		int backupin;
+		if(-1 == (backupin = dup(0))) {
+			perror("error with dup");
+		}
+		cout << "backupin" << backupin << endl;
+		if(-1 == close(0)) {
+			perror("error with close");
+		}
+		int blah;
+		if(-1 == (blah = dup(fd[0]))) {
+			perror("error with dup");
+		}
+		cout << "blah" << blah << endl;
+		if(-1 == close(fd[0])) {
+			perror("error with close");
+		}
+
+		if(rightside.size() > 1) {
+			cout  <<  "recursing" << endl;
+			redirtest(onecommand, rightside, i, redirector);
+		}
+
+		
+
+		//restore backupin
+		if(-1 == dup2(backupin, 0)) {
+			perror("error dup2");
+		}
+
+	}
+
+	return true;
+}
+
+
+
+
 //pipes
 bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 	//getting right side of pipe
@@ -189,23 +284,24 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 		perror("error with fork");
 	} else if(0 == forkid) {
 		//child
-		if(-1 == close(fd[0])) {
-			perror("error with close");
-		}
+		
 		if(-1 == close(1)) {
 			perror("error with close");
 		}	//need to error check
 		if(-1 == dup(fd[1])) {
 			perror("error with dup");
 		}	//need to error check
+		if(-1 == close(fd[0])) {
+			perror("error with close");
+		}
+
 		if(-1 == execvp(leftside.at(0), &leftside[0])) {
 			perror("erorr with execvp");
 		}
 		exit(1);
 	} else {
 	//parent
-
-		//fork again
+				//fork again
 		int forkid2 = fork();
 		if(-1 == forkid2) {
 			perror("error with fork2");
@@ -227,6 +323,7 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 			}
 			exit(1);
 		}	
+
 	
 	}	//for fork1 else
 
@@ -284,7 +381,7 @@ bool redirectors(const vector<char*> &onecommand) {
 	if(redirector < 3) {
 		execinout(onecommand, newcommand, i, redirector);
 	} else if(redirector == 3) {
-		redir3(onecommand, newcommand, i);	
+		redirtest(onecommand, newcommand, i, redirector);	
 	}
 
 
