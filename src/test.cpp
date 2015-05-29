@@ -15,14 +15,14 @@ using namespace std;
 
 //adds space before and after all instances of op in text to text
 void addSpaces(string &text, const string &op) {
-	size_t length = op.length();
+	size_t length = op.size();
 	size_t pos;
 	pos = text.find(op, 0);	//some inspiration from stackoverflow.com/questions/4034750
 
 
 	while(pos != string::npos) {
 		//pos+1 to go to thing pos was pointing at, but want to move AFTER that
-		if(text.substr(pos, length) != op) {
+		if(text.substr(pos+1, length) != op) {
 			text.insert(pos, " ");	//one space before
 			text.insert(pos+1+length, " "); //and one space after
 			pos = text.find(op, pos+1+length);
@@ -394,6 +394,7 @@ bool cacoosdadoos(char *yenna) {
 	if(path.empty()) {
 		return false;
 	}
+	cout << "path = " << path << endl;
 
 	//if / is at the end, remove it. just cuz it looks ugly
 	if(path.at(path.size() - 1) == '/') {
@@ -419,6 +420,13 @@ bool cacoosdadoos(char *yenna) {
 		newpwd = pwd;
 		newpwd += '/' + path;
 	}
+
+	//actually change directory here.. goddamn.
+	if(chdir(newpwd.c_str()) == -1) {
+		perror("error with chdir");
+		return false;
+	}
+
 	
 	//set the oldpwd to pwd before changing pwd
 	if(setenv("OLDPWD", pwd, 1) == -1) {
@@ -432,11 +440,7 @@ bool cacoosdadoos(char *yenna) {
 	
 	
 	cout << "newpwd = " << newpwd << endl;	
-	//actually change directory here.. goddamn.
-	if(chdir(newpwd.c_str()) == -1) {
-		perror("error with chdir");
-		return false;
-	}
+	
 
 	return true;
 }
@@ -513,7 +517,11 @@ void terminal() {
 	string dir(currdir);
 	string homiesoverhoes(homedir);
 	
-	dir.replace(dir.find(homiesoverhoes), homiesoverhoes.size(), "~");
+	size_t findd = dir.find(homiesoverhoes);
+	if(findd != string::npos) {
+		dir.replace(findd, homiesoverhoes.size(), "~");
+	}
+//	dir.replace(dir.find(homiesoverhoes), homiesoverhoes.size(), "~");
 	
 
 	pid = gethostname(host, 32);
@@ -542,7 +550,6 @@ void terminal() {
 	addSpaces(input, ">>");
 	addSpaces(input, ">");
 	addSpaces(input, "|");
-
 
 	
 	//vector<char*> words;
