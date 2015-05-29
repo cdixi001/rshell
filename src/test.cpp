@@ -389,6 +389,57 @@ bool redirectors(const vector<char*> &onecommand) {
 	return true;
 }
 
+bool cacoosdadoos(char *yenna) {
+	string path = yenna;
+	if(path.empty()) {
+		return false;
+	}
+
+	//if / is at the end, remove it. just cuz it looks ugly
+	if(path.at(path.size() - 1) == '/') {
+		path.resize(path.size() - 1);
+	}
+	
+	char *pwd;
+	if((pwd = getenv("PWD")) == NULL) {
+		perror("error with getenv");
+		exit(1);
+	}
+	string newpwd;
+	
+	if(path == "-") {
+		if((newpwd = getenv("OLDPWD")).empty()) {
+			perror("error with geenv");
+			return false;
+		}
+	//if it starts with '/' for example cd /home/blah
+	} else if(path.at(0) == '/') {
+		newpwd = path;
+	} else {
+		newpwd = pwd;
+		newpwd += '/' + path;
+	}
+	
+	//set the oldpwd to pwd before changing pwd
+	if(setenv("OLDPWD", pwd, 1) == -1) {
+		perror("error setenv");
+		return false;
+	}
+	if(setenv("PWD", newpwd.c_str(), 1) == -1) {
+		perror("error setenv");
+		return false;
+	}
+	
+	
+	cout << "newpwd = " << newpwd << endl;	
+	//actually change directory here.. goddamn.
+	if(chdir(newpwd.c_str()) == -1) {
+		perror("error with chdir");
+		return false;
+	}
+
+	return true;
+}
 
 
 bool execvpstuff(vector<char*> &onecommand) {
@@ -401,11 +452,14 @@ bool execvpstuff(vector<char*> &onecommand) {
 	//http://github.com/mikeizbicki/ucr-cs100/blob/2015spring/textbook/assignment-help/syscalls/exec.md
 	if(onecommand.size() < 2) {
 		returnval = true;
-	} else {
+	}
 		
 		if(strcmp(command[0], "exit") == 0) {
 			onecommand.clear();
 			exit(0);
+		} else if(strcmp(command[0], "cd") == 0) {
+			//call cacoosdadoos here
+			returnval = cacoosdadoos(onecommand[1]);
 		} else {
 			pipe(pipearr);		//some pipe bs.
 			int pid = fork();
@@ -433,7 +487,6 @@ bool execvpstuff(vector<char*> &onecommand) {
 			onecommand.clear();
 			return returnval;
 		}
-	}
 	return returnval;
 }
 
@@ -445,13 +498,31 @@ void terminal() {
 	
 	string input;
 	
+	char *currdir;
+	if((currdir = getenv("PWD")) == NULL) {
+		perror("error with getenv");
+		exit(1);
+	}
+	
+	char *homedir;
+	if((homedir = getenv("HOME")) == NULL) {
+		perror("error with getenv");
+		exit(1);
+	}
+
+	string dir(currdir);
+	string homiesoverhoes(homedir);
+	
+	dir.replace(dir.find(homiesoverhoes), homiesoverhoes.size(), "~");
+	
+
 	pid = gethostname(host, 32);
 	if(pid == -1) {				//error
 		perror("gethostname");
 	} else {
 		printf("%c[%dm", 0x1B, 100);
 		printf("%c[%dm", 0x1B, 96);
-		cout << getlogin() << "Ω" << host << " §";
+		cout << getlogin() << "Ω" << host << ':' << dir << " §";
 		printf("%c[%dm", 0x1B, 0);
 		cout << ' ';
 	}
