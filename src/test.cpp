@@ -755,6 +755,9 @@ int main(int argc, char* argv[]) {
 	if(-1 == sigaction(SIGINT, &newac, NULL)) {
 		perror("praalam sigaction");
 	}
+	if(-1 == sigaction(SIGTSTP, &newac, NULL)) {
+		perror("praalam sigaction");
+	}
 
 //	signal(SIGINT, handle);
 	
