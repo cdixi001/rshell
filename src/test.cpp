@@ -13,6 +13,8 @@
 
 using namespace std;
 
+pid_t thepid = 0;
+
 //adds space before and after all instances of op in text to text
 void addSpaces(string &text, const string &op) {
 	if(text.empty()) {
@@ -153,6 +155,7 @@ bool execinout(const vector<char*> &onecommand, const vector<char*> newcommand, 
 //~~~~~~~~~~~~~~~~~-------------------------------------------------------
 	
 	int forkid = fork();
+	thepid = forkid;
 	if(-1 == forkid) {
 		perror("error with fork");
 		exit(1);
@@ -212,6 +215,7 @@ bool redirtest(const vector<char*> &onecommand, vector<char*> leftside, size_t i
 	}
 	
 	int forkid = fork();
+	thepid = forkid;
 	if(-1 == forkid) {
 		perror("error with fork");
 	} else if(0 == forkid) {
@@ -300,6 +304,7 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 	}
 	
 	int forkid = fork();
+	thepid = forkid;
 	if(-1 == forkid) {
 		perror("error with fork");
 	} else if(0 == forkid) {
@@ -323,6 +328,7 @@ bool redir3(const vector<char*> &onecommand, vector<char*> leftside, size_t i) {
 	//parent
 				//fork again
 		int forkid2 = fork();
+		thepid = forkid2;
 		if(-1 == forkid2) {
 			perror("error with fork2");
 		} else if(0 == forkid2) {
@@ -414,11 +420,13 @@ bool redirectors(const vector<char*> &onecommand) {
 
 bool cacoosdadoos(char *yenna) {
 	string path = yenna;
+	/*
 	if(path.empty()) {
 		return false;
 	}
+	*/
 
-	cout << "path = " << path << endl;
+//	cout << "path = " << path << endl;
 //	path = rmconsecutive(path, '/');	//remove consecutive /'s
 	
 	//if / is at the end, remove it. just cuz it looks ugly
@@ -436,11 +444,17 @@ bool cacoosdadoos(char *yenna) {
 	}
 	string newpwd;
 
-	if(path == "-") {
+	if(path.empty()) {
+		if((newpwd = getenv("HOME")).empty()) {
+			perror("error with getenv");
+			return false;
+		}
+	} else if(path == "-") {
 		if((newpwd = getenv("OLDPWD")).empty()) {
 			perror("error with geenv");
 			return false;
 		}
+		cout << newpwd << endl;
 	//if it starts with '/' for example cd /home/blah
 	} else if(path == ".") {
 		newpwd = pwd;
@@ -451,7 +465,7 @@ bool cacoosdadoos(char *yenna) {
 		}
 		newpwd = newpwd.substr(0, newpwd.find_last_of("/"));
 	} else if(path.at(0) == '/') {
-		newpwd = path;
+		newpwd = path; 
 	} else {
 		newpwd = pwd;
 		newpwd += '/' + path;
@@ -495,7 +509,7 @@ bool execvpstuff(vector<char*> &onecommand) {
 		//EXECVP STUFF HERE
 	//http://github.com/mikeizbicki/ucr-cs100/blob/2015spring/textbook/assignment-help/syscalls/exec.md
 	if(onecommand.size() < 2) {
-		returnval = true;
+		return true;
 	}
 		
 		if(strcmp(command[0], "exit") == 0) {
@@ -505,10 +519,35 @@ bool execvpstuff(vector<char*> &onecommand) {
 			//call cacoosdadoos here
 			if(onecommand.size() > 2) {
 				returnval = cacoosdadoos(onecommand.at(1));
-			} else returnval = false;
+			} else {
+				char theo[] = "";
+				returnval = cacoosdadoos(theo);
+			}
+		} else if(strcmp(command[0], "fg") == 0) {
+			if(thepid == 0) {
+				cout << "No processes to fg" << endl;
+				return false;
+			}
+			if(kill(thepid, SIGCONT) == -1) {
+				perror("error with kill");
+				return false;
+			}
+			return true;
+		} else if(strcmp(command[0], "bg") == 0) {
+			if(thepid == 0) {
+				cout << "No processes to bg" << endl;
+				return false;
+			}
+			if(kill(thepid, SIGCONT) == -1) {
+				perror("error with kill");
+				return false;
+			}
+			thepid = 0;
+			return true;
 		} else {
 			pipe(pipearr);		//some pipe bs.
-			int pid = fork();
+			pid_t pid = fork();
+			thepid = pid;
 			if(pid == -1) {
 				perror("Error with fork");
 				exit(1);
@@ -592,7 +631,6 @@ void terminal() {
 	//shit starts here
 	//we will begin tonight's program by taking in 
 	getline(cin, input);
-	
 	//add spaces before and after all operators in input
 	addSpaces(input, ";");
 	addSpaces(input, "&&");
@@ -669,7 +707,9 @@ void terminal() {
 			if(hasredirectors) {
 				//redirectors takes care of chained
 				success = redirectors(onecommand);
-			} else success = execvpstuff(onecommand);
+			} else {
+				success = execvpstuff(onecommand);
+			}
 			hasredirectors = false;	//have to reset the flag
 			if(issemi) {
 				onecommand.clear();
@@ -686,9 +726,6 @@ void terminal() {
 		}
 		i++;
 	}
-		
-
-
 
 	delete[] line;
 	
@@ -699,7 +736,13 @@ void terminal() {
 }
 
 void handle(int x) {
-	cout << "dasq" << endl;
+	cout << endl;
+	if(x == SIGTSTP) {
+		if(kill(thepid, SIGSTOP) == -1) {
+			perror("error with kill");
+		}
+		cout << "Stopped process #" << thepid << endl;
+	}
 }
 
 int main(int argc, char* argv[]) {
@@ -709,11 +752,11 @@ int main(int argc, char* argv[]) {
 	sigemptyset(&newac.sa_mask);
 	newac.sa_flags = 0;
 
-	if(-1 == sigaction(SIGTSTP, &newac, NULL)) {
+	if(-1 == sigaction(SIGINT, &newac, NULL)) {
 		perror("praalam sigaction");
 	}
 
-	signal(SIGINT, handle);
+//	signal(SIGINT, handle);
 	
 
 	cout << "¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤" << endl;
