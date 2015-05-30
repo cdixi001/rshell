@@ -30,6 +30,37 @@ void addSpaces(string &text, const string &op) {
 	}
 }
 
+//removes consecutive instances of theo from path
+string rmconsecutive(string path, char theo) {
+	string newpath;
+	bool theoflag = 0;
+	for(size_t i = 0; i < path.size(); i++) {
+		if(path.at(i) != theo) {
+			newpath += path.at(i);
+			theoflag = false;
+		} else if(!theoflag) {
+			newpath += theo;
+			theoflag = true;
+		}
+	}
+	return newpath;
+}
+
+string rmdots(string &path) {
+	size_t pos = path.find("/..", 0);
+	size_t two;
+	size_t three;
+	while(pos != string::npos) {
+		if((two = path.find_last_of("/..", pos-1)) == string::npos) {
+			cout << "nothing before";
+			return path;
+		}
+		if((three = path.find("/", pos+1)) == string::npos) {
+			cout << "no three";
+			return path;
+		}
+	}
+}
 
 //adds space before and after all instances of op in text to text
 void addNumbers(string &text, const string &op) {
@@ -394,52 +425,71 @@ bool cacoosdadoos(char *yenna) {
 	if(path.empty()) {
 		return false;
 	}
+
 	cout << "path = " << path << endl;
 
+	path = rmconsecutive(path, '/');	//remove consecutive /'s
+	
+
 	//if / is at the end, remove it. just cuz it looks ugly
-	if(path.at(path.size() - 1) == '/') {
-		path.resize(path.size() - 1);
+	if(path.size() > 1) {
+		if(path.at(path.size() - 1) == '/') {
+			path.resize(path.size() - 1);
+		}
 	}
 	
+		
 	char *pwd;
 	if((pwd = getenv("PWD")) == NULL) {
 		perror("error with getenv");
 		exit(1);
 	}
 	string newpwd;
-	
+
 	if(path == "-") {
 		if((newpwd = getenv("OLDPWD")).empty()) {
 			perror("error with geenv");
 			return false;
 		}
 	//if it starts with '/' for example cd /home/blah
+	} else if(path == ".") {
+		newpwd = pwd;
+	} else if(path == "..") {
+		newpwd = pwd;
+		if(newpwd.find_last_of("/") == string::npos) {
+			return false;
+		}
+		newpwd = newpwd.substr(0, newpwd.find_last_of("/"));
 	} else if(path.at(0) == '/') {
 		newpwd = path;
 	} else {
 		newpwd = pwd;
 		newpwd += '/' + path;
 	}
-
+	
+	
+	
 	//actually change directory here.. goddamn.
 	if(chdir(newpwd.c_str()) == -1) {
 		perror("error with chdir");
 		return false;
 	}
 
-	
+	char cwd[BUFSIZ];
+	if(getcwd(cwd, BUFSIZ) == NULL) {
+		perror("error with getcwd");
+	}
+
+
 	//set the oldpwd to pwd before changing pwd
 	if(setenv("OLDPWD", pwd, 1) == -1) {
 		perror("error setenv");
 		return false;
 	}
-	if(setenv("PWD", newpwd.c_str(), 1) == -1) {
+	if(setenv("PWD", cwd, 1) == -1) {
 		perror("error setenv");
 		return false;
 	}
-	
-	
-	cout << "newpwd = " << newpwd << endl;	
 	
 
 	return true;
@@ -502,10 +552,9 @@ void terminal() {
 	
 	string input;
 	
-	char *currdir;
-	if((currdir = getenv("PWD")) == NULL) {
-		perror("error with getenv");
-		exit(1);
+	char currdir[BUFSIZ];
+	if(getcwd(currdir, BUFSIZ) == NULL) {
+		perror("error with getcwd");
 	}
 	
 	char *homedir;
