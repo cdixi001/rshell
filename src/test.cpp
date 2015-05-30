@@ -15,6 +15,9 @@ using namespace std;
 
 //adds space before and after all instances of op in text to text
 void addSpaces(string &text, const string &op) {
+	if(text.empty()) {
+		return;
+	}
 	size_t length = op.size();
 	size_t pos;
 	pos = text.find(op, 0);	//some inspiration from stackoverflow.com/questions/4034750
@@ -30,6 +33,8 @@ void addSpaces(string &text, const string &op) {
 	}
 }
 
+/*
+//don't need this because of stupid getcwd goddamnit mark i hate you
 //removes consecutive instances of theo from path
 string rmconsecutive(string path, char theo) {
 	string newpath;
@@ -45,23 +50,10 @@ string rmconsecutive(string path, char theo) {
 	}
 	return newpath;
 }
+*/
 
-string rmdots(string &path) {
-	size_t pos = path.find("/..", 0);
-	size_t two;
-	size_t three;
-	while(pos != string::npos) {
-		if((two = path.find_last_of("/..", pos-1)) == string::npos) {
-			cout << "nothing before";
-			return path;
-		}
-		if((three = path.find("/", pos+1)) == string::npos) {
-			cout << "no three";
-			return path;
-		}
-	}
-}
-
+/*
+//doesn't do anything. was going to use for piping extra credit, but never got to it
 //adds space before and after all instances of op in text to text
 void addNumbers(string &text, const string &op) {
 	size_t length = op.length();
@@ -76,7 +68,7 @@ void addNumbers(string &text, const string &op) {
 		pos = text.find(op, pos+1+length);
 	}
 }
-
+*/
 
 /*
 //takes in string and deliminator and tokenizes that string into vector<char*>
@@ -427,10 +419,8 @@ bool cacoosdadoos(char *yenna) {
 	}
 
 	cout << "path = " << path << endl;
-
-	path = rmconsecutive(path, '/');	//remove consecutive /'s
+//	path = rmconsecutive(path, '/');	//remove consecutive /'s
 	
-
 	//if / is at the end, remove it. just cuz it looks ugly
 	if(path.size() > 1) {
 		if(path.at(path.size() - 1) == '/') {
@@ -513,7 +503,9 @@ bool execvpstuff(vector<char*> &onecommand) {
 			exit(0);
 		} else if(strcmp(command[0], "cd") == 0) {
 			//call cacoosdadoos here
-			returnval = cacoosdadoos(onecommand[1]);
+			if(onecommand.size() > 2) {
+				returnval = cacoosdadoos(onecommand.at(1));
+			} else returnval = false;
 		} else {
 			pipe(pipearr);		//some pipe bs.
 			int pid = fork();
@@ -531,9 +523,20 @@ bool execvpstuff(vector<char*> &onecommand) {
 				onecommand.clear();		//clear vector so it can hold next command.
 				exit(0);
 			}
+		
+			int wpid;
+			do {
+				wpid = waitpid(pid, NULL, 0);
+			} while(wpid == -1 && errno == EINTR);
+			if(wpid == -1) {
+				perror("erorr with waitpid");
+				returnval = false;
+			}
+			/*
 			if(-1 == wait(0)) {
 				perror("error with wait");
 			}
+			*/
 			close(pipearr[1]);
 			read(pipearr[0], &returnval, sizeof(returnval));
 			close(pipearr[0]);	
@@ -546,6 +549,7 @@ bool execvpstuff(vector<char*> &onecommand) {
 
 
 void terminal() {
+	cin.clear();
 	//~~~~~~~~~~~~print username, hostnam, and prompte~~~~~~~~
 	char host[32];//add to readme: 32 cuz max is 64 and i dont want long printing
 	int pid;
@@ -694,12 +698,29 @@ void terminal() {
 
 }
 
+void handle(int x) {
+	cout << "dasq" << endl;
+}
+
 int main(int argc, char* argv[]) {
+	struct sigaction newac;
+	memset(&newac, 0, sizeof(newac));
+	newac.sa_handler = handle;
+	sigemptyset(&newac.sa_mask);
+	newac.sa_flags = 0;
+
+	if(-1 == sigaction(SIGTSTP, &newac, NULL)) {
+		perror("praalam sigaction");
+	}
+
+	signal(SIGINT, handle);
+	
 
 	cout << "¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤" << endl;
 	
-	while(1)
+	while(1) {
 	terminal();
+	}
 
 	return 0;
 }
