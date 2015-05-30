@@ -1,0 +1,121 @@
+Script started on Fri 29 May 2015 11:53:18 PM PDT
+~
+cdixi001@hammer $ cs100
+[0;91m
+===============================================================================
+|                                                                             |
+| You have enabled settings specific for cs100.  Everything you do is being   |
+| recorded to measure your progress in the class.                             |
+|                                                                             |
+| Important commands for the class:                                           |
+|   * calcgrade.sh          displays a detailed breakdown of your grade       |
+|   * checksyscalls.sh      is your cpp file doing proper error checking?     |
+|   * typespeed             practice typing unix commands                     |
+|                                                                             |
+| Important commands for general C++ programming:                             |
+|   * make                  don't call g++ manually; let make do the work!    |
+|   * gdb                   the GNU debugger                                  |
+|   * valgrind              get rid of your memory leaks                      |
+|   * cppcheck              static analysis tool                              |
+|   * man                   find help about any syscall / terminal command    |
+|                                                                             |
+===============================================================================
+[0m
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~[0;95m [0;36m$[0m cd Documents/rs[K[Kcs100/rshell/
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (cd) [0;36m$[0m make
+make: Nothing to be done for `all'.
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (cd) [0;36m$[0m bin/rshell
+¤¤¡¡¡¡¡Bienvenidos a la terminál rshell de Chirag!!!!!¤¤
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #cd then ctrl c
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #start cd with regular, then dots
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd src
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src §[0m cd blah
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m cd asdfasfsadf
+error with chdir: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m ls
+a.out  dasq  main.cpp
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m cd ../..
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m ls
+bin  inputfile	LICENSE  Makefile  outfile  outfile2  outputfile  README.md  src  tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd src/blah
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m #now slash beginning
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m pwd
+/home/csmajs/cdixi001/Documents/cs100/rshell/src/blah
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m cd /home/csmajs/cdixi001/
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m cd /
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:/ §[0m cd /home
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:/home §[0m cd /home/csmajs/Docu   c  cdixi001/Do	^[[C^[[C         /Documents/cs1000/rshell
+error with chdir: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:/home §[0m cd /home/csmajs/cdixi001/Documents/cs100/rshell #misspelled cs100
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #slash at end doesn't matter
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd src/
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src §[0m m #multiple slashes doesnt matter
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src §[0m cd blah//////////dasq/////
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah/dasq §[0m cd /home/D csm ajs    ajs/cdixi001/Documents/cs100/rshell/src/    
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #lets do dot
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd .
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd ..
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100 §[0m cd rshell/../.
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100 §[0m cd ./rshell/..
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100 §[0m cd ./rshell/././././.
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd ../rsh   cs100/././
+error with chdir: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd ../rshell/./././
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #cool. let's do - now
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m ls
+bin  inputfile	LICENSE  Makefile  outfile  outfile2  outputfile  README.md  src  tests
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd src/bin
+error with chdir: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd src/blah
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell/src/blah §[0m cd -
+/home/csmajs/cdixi001/Documents/cs100/rshell
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #just like bash, i show the directory i am going back to and then go to it
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd /
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:/ §[0m cd -
+/home/csmajs/cdixi001/Documents/cs100/rshell
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #oh also ~ id   s only dispalyed for /home/csmajs/cdixi001
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd -
+/
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:/ §[0m cd home/csmajs/cdixi001
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m #cd by itself
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m cd
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m #takes me to home directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m cd Documents/cs100/rshell
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m cd Docum ent    ents ; cd           #spaces don't matter
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m cd /
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:/ §[0m cd
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m #~~~~~~~~~~~begin ctrl c~~~~~~~~~~
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~ §[0m cd Documents/cs100/rshell
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cdadfasdf          asdfasdf
+error with chdir: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cd /asdfasfasdf
+error with chdir: No such file or directory
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #ok really start ctrl c now
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cat
+^C
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m cat
+yenna
+yenna
+swami
+swami
+theo
+theo
+iyer
+iyer
+^C
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #ctrl c byi  itself
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m ^C
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m ^C
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #i tried ctrl z, lets see what happens
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #wait just dkidding i can't type ctrl z on this computer for some reason
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #it didn't work anyway, sorry about the hype, i know you were expecting to be blown away
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m #thanks busra, you're awesome.  
+[100m[96mcdixi001Ωhammer.cs.ucr.edu:~/Documents/cs100/rshell §[0m eit  xit
+[s%%%%%%%%%%[u[0;32mcdixi001[0;36m@[0;32mcs100[0;36m:[0;32m~/Documents/cs100/rshell[0;95m (cd) [0;36m$[0m exit
+exit
+~
+cdixi001@hammer $ exit
+exit
+
+Script done on Sat 30 May 2015 12:05:12 AM PDT
