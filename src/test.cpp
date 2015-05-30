@@ -738,10 +738,12 @@ void terminal() {
 void handle(int x) {
 	cout << endl;
 	if(x == SIGTSTP) {
-		if(kill(thepid, SIGSTOP) == -1) {
-			perror("error with kill");
+		if(thepid != 0) {
+			if(kill(thepid, SIGSTOP) == -1) {
+				perror("error with kill");
+			}
+			cout << "Stopped process #" << thepid << endl;
 		}
-		cout << "Stopped process #" << thepid << endl;
 	}
 }
 
