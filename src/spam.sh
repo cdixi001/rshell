@@ -2,6 +2,7 @@
 
 #read recipient sender
 website=`echo $2 | cut -d '@' -f 2`
+body=`cat`
 
 echo "recipiennt $1 sender $2"
 
@@ -17,7 +18,7 @@ echo "data"
 sleep 2
 echo "Subject: I'm da captain"
 sleep 2
-echo "i'm da captain now."
+echo "$body"
 sleep 2
 echo "."
 ) | 
